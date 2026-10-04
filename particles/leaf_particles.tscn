@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cfe0lhqc2ba0u"]
+
+[ext_resource type="Texture2D" uid="uid://b2ejchmv4wrkl" path="res://particles/leaf_particle.png" id="1_0ptvd"]
+
+[sub_resource type="Gradient" id="Gradient_xrivr"]
+offsets = PackedFloat32Array(0, 0.2753623, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="LeafParticles" type="CPUParticles2D" unique_id=2072867062]
+z_index = 50
+emitting = false
+amount = 5
+texture = ExtResource("1_0ptvd")
+lifetime = 0.3
+one_shot = true
+spread = 90.0
+gravity = Vector2(0, 98)
+initial_velocity_min = 30.0
+initial_velocity_max = 30.0
+angle_max = 90.0
+scale_amount_min = 0.5
+color_ramp = SubResource("Gradient_xrivr")

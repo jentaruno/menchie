@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bkiglssvp5dme"]
+
+[ext_resource type="Script" uid="uid://dklrb71t6ivjp" path="res://particles/bite_particles.gd" id="1_xdvsb"]
+
+[sub_resource type="Curve" id="Curve_gx70a"]
+_data = [Vector2(0, 0), 0.0, 2.858687, 0, 0, Vector2(0.49795914, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -4.014512, 0.0, 0, 0]
+point_count = 3
+
+[node name="BiteParticles" type="Line2D" unique_id=302109704]
+modulate = Color(1, 1, 1, 0)
+width = 2.0
+width_curve = SubResource("Curve_gx70a")
+script = ExtResource("1_xdvsb")

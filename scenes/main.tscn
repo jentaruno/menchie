@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cfc6au34did84"]
+
+[ext_resource type="PackedScene" uid="uid://b3s2a2rc73jma" path="res://player/menchie.tscn" id="1_jyhfs"]
+[ext_resource type="Script" uid="uid://dq64i38geyd2i" path="res://player/player_controller.gd" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://b58vms8g71mu3" path="res://player/player_camera.gd" id="2_jyhfs"]
+[ext_resource type="Script" uid="uid://cpbtgrvqrdovj" path="res://world/terrain/footstep_manager.gd" id="4_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://66720eogkxjg" path="res://world/vegetation/regular_tree.tscn" id="5_tbgi4"]
+
+[sub_resource type="Gradient" id="Gradient_tefeu"]
+colors = PackedColorArray(0.8901961, 0.78431374, 0.5882353, 1, 0.8901961, 0.78431374, 0.5882353, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o6xl0"]
+gradient = SubResource("Gradient_tefeu")
+
+[node name="Node2D" type="Node2D" unique_id=2122483614]
+
+[node name="Systems" type="Node" parent="." unique_id=315969325]
+
+[node name="PlayerController" type="Node" parent="Systems" unique_id=1907906850]
+script = ExtResource("1_sugp2")
+
+[node name="Background" type="Node" parent="." unique_id=1743996493]
+
+[node name="PlayerCamera" type="Camera2D" parent="Background" unique_id=821783281]
+unique_name_in_owner = true
+position_smoothing_speed = 100.0
+script = ExtResource("2_jyhfs")
+
+[node name="DirtTerrain" type="Sprite2D" parent="Background/PlayerCamera" unique_id=1595453022]
+z_index = -50
+scale = Vector2(3, 500)
+texture = SubResource("GradientTexture1D_o6xl0")
+
+[node name="FootstepManager" type="Node" parent="Background" unique_id=849278281]
+script = ExtResource("4_o6xl0")
+
+[node name="Entities" type="Node" parent="." unique_id=1770293303]
+
+[node name="Menchie" parent="Entities" unique_id=795775763 instance=ExtResource("1_jyhfs")]
+unique_name_in_owner = true
+z_index = 20
+
+[node name="TreeTop" parent="Entities" unique_id=2114284003 instance=ExtResource("5_tbgi4")]
+position = Vector2(157, 0)

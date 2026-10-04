@@ -1,0 +1,251 @@
+[gd_scene format=3 uid="uid://b3s2a2rc73jma"]
+
+[ext_resource type="Script" uid="uid://3e4fm43ja5j5" path="res://player/body_parts/dino_body.gd" id="1_3vfhu"]
+[ext_resource type="Script" uid="uid://c61iw65qiitaw" path="res://player/body_parts/dino_neck.gd" id="2_oudl4"]
+[ext_resource type="Script" uid="uid://b33mu8sgfqy3p" path="res://player/body_parts/dino_tail.gd" id="3_j3rgi"]
+[ext_resource type="Script" uid="uid://bxudouh4xu2yl" path="res://player/body_parts/dino_head.gd" id="3_woslb"]
+[ext_resource type="Script" uid="uid://vxfs4nj1x82" path="res://player/body_parts/dino_legs.gd" id="4_dwkui"]
+[ext_resource type="Script" uid="uid://bmga6c5dmovii" path="res://player/body_parts/dino_head_anim.gd" id="4_gx70a"]
+[ext_resource type="PackedScene" uid="uid://bkiglssvp5dme" path="res://particles/bite_particles.tscn" id="4_q27ga"]
+[ext_resource type="Script" uid="uid://cbv5paoxqggec" path="res://player/body_parts/dino_leg.gd" id="5_7hqxn"]
+[ext_resource type="Script" uid="uid://2ghyfad1iqnf" path="res://player/body_parts/dino_shadow.gd" id="6_gb87v"]
+[ext_resource type="Script" uid="uid://bsiwg0lrpeht7" path="res://common/line_2d_color_setter.gd" id="9_xoblb"]
+[ext_resource type="Script" uid="uid://bj4nswbqhdmf6" path="res://player/body_parts/growth_manager.gd" id="10_7ytui"]
+[ext_resource type="Shader" uid="uid://dtea5xajsv35q" path="res://vfx/outline_and_shadow.gdshader" id="10_4760t"]
+
+[sub_resource type="Curve" id="Curve_tbgi4"]
+_data = [Vector2(0, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.5020408, 1), -0.06714131, -0.06714131, 0, 0, Vector2(0.6040816, 1), -0.40145117, -0.40145117, 0, 0, Vector2(1, 0.5842697), -1.0814605, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_13qdw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.17142856, 0.9550562), -0.8374342, -0.8374342, 0, 0, Vector2(1, 0.50561804), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xrivr"]
+radius = 9.0
+height = 26.0
+
+[sub_resource type="Curve" id="Curve_woslb"]
+_data = [Vector2(0, 0.6966293), 0.0, -0.1573034, 0, 1, Vector2(1, 0.5393259), -0.1573034, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_sugp2"]
+_data = [Vector2(0, 1), 0.0, 8.1128536e-07, 0, 0, Vector2(0.08571429, 1), -0.5352683, -0.5352683, 0, 0, Vector2(0.58775514, 0.35789478), -1.249746, -1.249746, 0, 0, Vector2(1, 0), -0.1376404, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_xrivr"]
+_data = [Vector2(0, 0.6966293), 0.0, -0.1573034, 0, 1, Vector2(1, 0.5393259), -0.1573034, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_7ytui"]
+_limits = [0.0, 2000.0, 0.0, 999.0]
+_data = [Vector2(0, 96), 0.0, 0.0, 0, 0, Vector2(999, 1024), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_58t8l"]
+_limits = [0.0, 2000.0, 0.0, 999.0]
+_data = [Vector2(0, 128), 0.0, 0.0, 0, 0, Vector2(999, 1024), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_y8rs7"]
+_limits = [0.0, 2000.0, 0.0, 999.0]
+_data = [Vector2(0, 160), 0.0, 0.0, 0, 0, Vector2(999, 1024), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ytui"]
+shader = ExtResource("10_4760t")
+shader_parameter/line_colour = Color(0.7647059, 0.14117648, 0.32941177, 1)
+shader_parameter/line_thickness = 1
+shader_parameter/shadow_colour = Color(0.28235295, 0.2901961, 0.46666667, 0.3137255)
+shader_parameter/shadow_offset = Vector2(-5, -5)
+
+[node name="Menchie" type="Node2D" unique_id=1090860608]
+
+[node name="Body" type="Line2D" parent="." unique_id=795775763]
+unique_name_in_owner = true
+points = PackedVector2Array(0, 0, -4, 0, -8, 0, -12, 0, -16, 0, -20, 0, -24, 0, -28, 0, -32, 0, -36, 0, -40, 0, -44, 0, -48, 0, -52, 0, -56, 0, -60, 0, -64, 0, -68, 0, -72, 0, -76, 0, -80, 0, -84, 0, -88, 0, -92, 0)
+width = 40.0
+width_curve = SubResource("Curve_tbgi4")
+default_color = Color(0.9647059, 0.5058824, 0.5058824, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("1_3vfhu")
+curr_length = 128.0
+
+[node name="Neck" type="Line2D" parent="Body" unique_id=583472671]
+unique_name_in_owner = true
+position = Vector2(4, 0)
+points = PackedVector2Array(0, 0, 128, 0)
+width = 20.0
+width_curve = SubResource("Curve_13qdw")
+default_color = Color(0.9647059, 0.5058824, 0.5058824, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("2_oudl4")
+constraint_iterations = 20
+
+[node name="Head" type="Area2D" parent="Body/Neck" unique_id=19157097]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(134, 0)
+script = ExtResource("3_woslb")
+
+[node name="HeadCollider" type="CollisionShape2D" parent="Body/Neck/Head" unique_id=1157306725]
+unique_name_in_owner = true
+position = Vector2(4, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_xrivr")
+
+[node name="HeadLine2D" type="Line2D" parent="Body/Neck/Head" unique_id=2141681677]
+unique_name_in_owner = true
+points = PackedVector2Array(0, 0, 3, 0, 5, 0)
+width = 20.0
+width_curve = SubResource("Curve_woslb")
+default_color = Color(0.9647059, 0.5058824, 0.5058824, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("4_gx70a")
+
+[node name="LeftEye" type="Line2D" parent="Body/Neck/Head/HeadLine2D" unique_id=1224438460]
+points = PackedVector2Array(1, 4, 3, 4)
+width = 1.5
+default_color = Color(0, 0, 0, 1)
+
+[node name="RightEye" type="Line2D" parent="Body/Neck/Head/HeadLine2D" unique_id=540471322]
+points = PackedVector2Array(1, -4, 3, -4)
+width = 1.5
+default_color = Color(0, 0, 0, 1)
+
+[node name="BiteParticles" parent="Body/Neck/Head/HeadLine2D" unique_id=302109704 instance=ExtResource("4_q27ga")]
+unique_name_in_owner = true
+position = Vector2(5, 0)
+
+[node name="TeethMarker2D" type="Marker2D" parent="Body/Neck/Head" unique_id=280378663]
+unique_name_in_owner = true
+position = Vector2(10, 0)
+
+[node name="Tail" type="Line2D" parent="Body" unique_id=1523876359]
+unique_name_in_owner = true
+position = Vector2(-93, 0)
+points = PackedVector2Array(0, 0, -13.333336, 0, -26.666672, 0, -40, 0, -53.33333, 0, -66.66666, 0, -79.999985, 0, -93.33331, 0, -106.66664, 0, -119.99997, 0, -133.3333, 0, -146.66663, 0)
+width = 25.0
+width_curve = SubResource("Curve_sugp2")
+default_color = Color(0.9647059, 0.5058824, 0.5058824, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("3_j3rgi")
+
+[node name="Legs" type="Node2D" parent="Body" unique_id=271228945]
+unique_name_in_owner = true
+z_index = -1
+position = Vector2(-1, 0)
+script = ExtResource("4_dwkui")
+
+[node name="HindLegsCenter" type="Node2D" parent="Body/Legs" unique_id=1657776198]
+unique_name_in_owner = true
+position = Vector2(-92, 0)
+
+[node name="LeftHindLegJoint" type="Marker2D" parent="Body/Legs/HindLegsCenter" unique_id=80706251]
+unique_name_in_owner = true
+position = Vector2(0, -11)
+
+[node name="LeftHindLeg" type="Line2D" parent="Body/Legs/HindLegsCenter/LeftHindLegJoint" unique_id=1748365967]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(-93, -11)
+points = PackedVector2Array(0, 0, 5, -2)
+width = 20.0
+width_curve = SubResource("Curve_xrivr")
+default_color = Color(0.9647059, 0.5058824, 0.5058824, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("5_7hqxn")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Body/Legs/HindLegsCenter/LeftHindLegJoint" unique_id=1816782397]
+remote_path = NodePath("../LeftHindLeg")
+update_position = false
+
+[node name="RightHindLegJoint" type="Marker2D" parent="Body/Legs/HindLegsCenter" unique_id=126644184]
+unique_name_in_owner = true
+position = Vector2(0, 11)
+
+[node name="RightHindLeg" type="Line2D" parent="Body/Legs/HindLegsCenter/RightHindLegJoint" unique_id=1416381883]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(-93, 11)
+points = PackedVector2Array(0, 0, 5, 2)
+width = 20.0
+width_curve = SubResource("Curve_xrivr")
+default_color = Color(0.9647059, 0.5058824, 0.5058824, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("5_7hqxn")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Body/Legs/HindLegsCenter/RightHindLegJoint" unique_id=825665872]
+remote_path = NodePath("../RightHindLeg")
+update_position = false
+
+[node name="LeftFrontLegJoint" type="Marker2D" parent="Body/Legs" unique_id=564908414]
+unique_name_in_owner = true
+position = Vector2(0, -9)
+
+[node name="LeftFrontLeg" type="Line2D" parent="Body/Legs/LeftFrontLegJoint" unique_id=1378318585]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(-1, -9)
+points = PackedVector2Array(0, 0, -5, -3)
+width = 20.0
+width_curve = SubResource("Curve_xrivr")
+default_color = Color(0.9647059, 0.5058824, 0.5058824, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("5_7hqxn")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Body/Legs/LeftFrontLegJoint" unique_id=603389620]
+remote_path = NodePath("../LeftFrontLeg")
+update_position = false
+
+[node name="RightFrontLegJoint" type="Marker2D" parent="Body/Legs" unique_id=874093854]
+unique_name_in_owner = true
+position = Vector2(0, 9)
+
+[node name="RightFrontLeg" type="Line2D" parent="Body/Legs/RightFrontLegJoint" unique_id=1075372920]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(-1, 9)
+points = PackedVector2Array(0, 0, -5, 3)
+width = 20.0
+width_curve = SubResource("Curve_xrivr")
+default_color = Color(0.9647059, 0.5058824, 0.5058824, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("5_7hqxn")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Body/Legs/RightFrontLegJoint" unique_id=1067879928]
+remote_path = NodePath("../RightFrontLeg")
+update_position = false
+
+[node name="ColorSetter" type="Node" parent="." unique_id=774902310 node_paths=PackedStringArray("lines")]
+script = ExtResource("9_xoblb")
+lines = [NodePath("../Body"), NodePath("../Body/Neck"), NodePath("../Body/Neck/Head/HeadLine2D"), NodePath("../Body/Tail"), NodePath("../Body/Legs/HindLegsCenter/LeftHindLegJoint/LeftHindLeg"), NodePath("../Body/Legs/HindLegsCenter/RightHindLegJoint/RightHindLeg"), NodePath("../Body/Legs/LeftFrontLegJoint/LeftFrontLeg"), NodePath("../Body/Legs/RightFrontLegJoint/RightFrontLeg")]
+color = Color(0.9647059, 0.5058824, 0.5058824, 1)
+
+[node name="GrowthManager" type="Node" parent="." unique_id=1588671250]
+script = ExtResource("10_7ytui")
+body_length = SubResource("Curve_7ytui")
+neck_length = SubResource("Curve_58t8l")
+tail_length = SubResource("Curve_y8rs7")
+
+[node name="OutlineAndShadow" type="CanvasGroup" parent="." unique_id=1774751120 node_paths=PackedStringArray("body_parts")]
+z_index = -10
+material = SubResource("ShaderMaterial_7ytui")
+script = ExtResource("6_gb87v")
+body_parts = [NodePath("../Body"), NodePath("../Body/Neck"), NodePath("../Body/Neck/Head/HeadLine2D"), NodePath("../Body/Tail"), NodePath("../Body/Legs/HindLegsCenter/LeftHindLegJoint/LeftHindLeg"), NodePath("../Body/Legs/HindLegsCenter/RightHindLegJoint/RightHindLeg"), NodePath("../Body/Legs/LeftFrontLegJoint/LeftFrontLeg"), NodePath("../Body/Legs/RightFrontLegJoint/RightFrontLeg")]

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://drh1w6palynkl"]
+
+[ext_resource type="Texture2D" uid="uid://duudpmj1e7kt" path="res://world/terrain/footstep.png" id="1_1nlc3"]
+[ext_resource type="Script" uid="uid://d14vvsbc7tyhy" path="res://world/terrain/footstep.gd" id="2_nbblc"]
+
+[node name="Footstep" type="Sprite2D" unique_id=567449152]
+texture = ExtResource("1_1nlc3")
+script = ExtResource("2_nbblc")

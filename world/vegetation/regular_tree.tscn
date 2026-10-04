@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://66720eogkxjg"]
+
+[ext_resource type="Script" uid="uid://dhmv0ngwxw1a1" path="res://world/vegetation/tree_top.gd" id="1_b0ovn"]
+[ext_resource type="Texture2D" uid="uid://eoci6mglubf0" path="res://world/vegetation/tree_top.png" id="2_7cshb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
+radius = 19.0
+
+[node name="TreeTop" type="Area2D" unique_id=2114284003]
+script = ExtResource("1_b0ovn")
+
+[node name="TreeSprite" type="Sprite2D" parent="." unique_id=200714429]
+unique_name_in_owner = true
+texture = ExtResource("2_7cshb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=410747218]
+shape = SubResource("CircleShape2D_xrivr")

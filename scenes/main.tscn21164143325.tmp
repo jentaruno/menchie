@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://cfc6au34did84"]
+
+[ext_resource type="Script" uid="uid://c61iw65qiitaw" path="res://dino/dino_neck.gd" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://dq64i38geyd2i" path="res://dino/dino_controller.gd" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://b33mu8sgfqy3p" path="res://dino/dino_tail.gd" id="2_0wfyh"]
+[ext_resource type="Script" uid="uid://3e4fm43ja5j5" path="res://dino/dino_body.gd" id="2_tbgi4"]
+[ext_resource type="Script" uid="uid://vxfs4nj1x82" path="res://dino/dino_legs.gd" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://cbv5paoxqggec" path="res://dino/dino_leg.gd" id="5_tefeu"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_wi6ju"]
+
+[sub_resource type="Curve" id="Curve_tbgi4"]
+_data = [Vector2(0, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.5020408, 1), -0.06714131, -0.06714131, 0, 0, Vector2(0.6040816, 1), -0.40145117, -0.40145117, 0, 0, Vector2(1, 0.5842697), -1.0814605, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_13qdw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.17142856, 0.9550562), -0.8374342, -0.8374342, 0, 0, Vector2(1, 0.50561804), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_sugp2"]
+_data = [Vector2(0, 1), 0.0, 8.1128536e-07, 0, 0, Vector2(0.08571429, 1), -0.5352683, -0.5352683, 0, 0, Vector2(0.58775514, 0.35789478), -1.249746, -1.249746, 0, 0, Vector2(1, 0), -0.1376404, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_xrivr"]
+_data = [Vector2(0, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.5020408, 1), -0.06714131, -0.06714131, 0, 0, Vector2(0.6653061, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.6292135), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="Node2D" type="Node2D" unique_id=1599600447]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1016377711]
+texture = SubResource("ImageTexture_wi6ju")
+
+[node name="Body" type="Line2D" parent="." unique_id=310900285]
+unique_name_in_owner = true
+points = PackedVector2Array(0, 0, -16, 0, -32, 0, -48, 0, -64, 0, -96, 0)
+width = 40.0
+width_curve = SubResource("Curve_tbgi4")
+default_color = Color(1, 0.83137256, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("2_tbgi4")
+
+[node name="Neck" type="Line2D" parent="Body" unique_id=352459617]
+unique_name_in_owner = true
+position = Vector2(4, 0)
+points = PackedVector2Array(0, 0, 128, 0)
+width = 20.0
+width_curve = SubResource("Curve_13qdw")
+default_color = Color(1, 0.83137256, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("1_0wfyh")
+bone_max_rotation = 10.0
+ik_iterations = 2
+enable_constraint = false
+
+[node name="Tail" type="Line2D" parent="Body" unique_id=1926405239]
+unique_name_in_owner = true
+position = Vector2(-93, 0)
+points = PackedVector2Array(0, 0, -8, 0, -16, 0, -32, 0, -64, 0, -128, 0)
+width = 25.0
+width_curve = SubResource("Curve_sugp2")
+default_color = Color(1, 0.83137256, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("2_0wfyh")
+
+[node name="Legs" type="Node2D" parent="Body" unique_id=1890467666]
+unique_name_in_owner = true
+z_index = -1
+position = Vector2(-1, 0)
+script = ExtResource("4_jyhfs")
+
+[node name="HindLegsCenter" type="Node2D" parent="Body/Legs" unique_id=621268314]
+unique_name_in_owner = true
+position = Vector2(-92, 0)
+
+[node name="LeftHindLegJoint" type="Marker2D" parent="Body/Legs/HindLegsCenter" unique_id=2005325610]
+unique_name_in_owner = true
+position = Vector2(0, -11)
+
+[node name="LeftHindLeg" type="Line2D" parent="Body/Legs/HindLegsCenter/LeftHindLegJoint" unique_id=1248322787]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(-93, -11)
+points = PackedVector2Array(0, 0, 5, -2)
+width = 20.0
+width_curve = SubResource("Curve_xrivr")
+default_color = Color(1, 0.83137256, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("5_tefeu")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Body/Legs/HindLegsCenter/LeftHindLegJoint" unique_id=293147100]
+remote_path = NodePath("../LeftHindLeg")
+update_position = false
+
+[node name="RightHindLegJoint" type="Marker2D" parent="Body/Legs/HindLegsCenter" unique_id=1370817222]
+unique_name_in_owner = true
+position = Vector2(0, 11)
+
+[node name="RightHindLeg" type="Line2D" parent="Body/Legs/HindLegsCenter/RightHindLegJoint" unique_id=2139690320]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(-93, 11)
+points = PackedVector2Array(0, 0, 5, 2)
+width = 20.0
+width_curve = SubResource("Curve_xrivr")
+default_color = Color(1, 0.83137256, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("5_tefeu")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Body/Legs/HindLegsCenter/RightHindLegJoint" unique_id=1117154330]
+remote_path = NodePath("../RightHindLeg")
+update_position = false
+
+[node name="LeftFrontLegJoint" type="Marker2D" parent="Body/Legs" unique_id=1437913508]
+unique_name_in_owner = true
+position = Vector2(0, -9)
+
+[node name="LeftFrontLeg" type="Line2D" parent="Body/Legs/LeftFrontLegJoint" unique_id=1009434827]
+unique_name_in_owner = true
+top_level = true
+points = PackedVector2Array(0, 0, -5, -3)
+width = 20.0
+width_curve = SubResource("Curve_xrivr")
+default_color = Color(1, 0.83137256, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("5_tefeu")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Body/Legs/LeftFrontLegJoint" unique_id=817801466]
+remote_path = NodePath("../LeftFrontLeg")
+update_position = false
+
+[node name="RightFrontLegJoint" type="Marker2D" parent="Body/Legs" unique_id=948433692]
+unique_name_in_owner = true
+position = Vector2(0, 9)
+
+[node name="RightFrontLeg" type="Line2D" parent="Body/Legs/RightFrontLegJoint" unique_id=1033011229]
+unique_name_in_owner = true
+top_level = true
+points = PackedVector2Array(0, 0, -5, 3)
+width = 20.0
+width_curve = SubResource("Curve_xrivr")
+default_color = Color(1, 0.83137256, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("5_tefeu")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Body/Legs/RightFrontLegJoint" unique_id=1591404206]
+remote_path = NodePath("../RightFrontLeg")
+update_position = false
+
+[node name="PlayerController" type="Node2D" parent="Body" unique_id=1676085150]
+script = ExtResource("1_sugp2")
+
+[node name="Camera2D" type="Camera2D" parent="Body" unique_id=1759646275]
+position_smoothing_enabled = true
