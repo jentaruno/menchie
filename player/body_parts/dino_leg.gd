@@ -6,9 +6,9 @@ var _step_speed: float = 0.0
 func _physics_process(delta: float) -> void:
 	if _step_speed:
 		global_position = global_position.move_toward(_step_target, _step_speed * delta)
-		if global_position == _step_target and Global.footstep_manager:
+		if global_position == _step_target:
 			_step_speed = 0.0
-			Global.footstep_manager.step(global_position)
+			EventBus.step_foot.emit(global_position)
 
 ## Move along with the body
 func move(delta: Vector2, move_rate: float) -> void:
