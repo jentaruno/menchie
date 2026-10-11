@@ -29,10 +29,12 @@ class_name DinoNeck extends AttachableLine2D
 @export_range(1, 20, 1) var constraint_iterations: int = 10
 ## Enable or disable constraints
 @export var enable_constraint: bool = true
-## Movement lerp
-@export var lerp_amount: float = 0.05
 ## Show rotation constraint gizmos during runtime?
 @export var show_rotation_constraints: bool = false
+## Per-bone movement lerp
+@export var lerp_amount: float = 0.05
+## Per-bone easing (to make bones further from the base have a higher lerp amount)
+@export var ease_amount: float = 1.2
 #endregion
 
 #region Private variables
@@ -49,7 +51,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	_base_position = global_position
-	var target_position: Vector2 = get_global_mouse_position()
+	var target_position = get_global_mouse_position()
 	var prev_bones = _bones.duplicate()
 	solve_ik(target_position)
 	
@@ -57,7 +59,7 @@ func _physics_process(_delta: float) -> void:
 		# Make lerp amount ease so that the base is always attached to the body,
 		# but the tip moves smoothly
 		var ease_x = float(num_bones - i) / num_bones
-		var curr_bone_lerp = ease(ease_x, 2) + lerp_amount
+		var curr_bone_lerp = ease(ease_x, ease_amount) + lerp_amount
 		_bones[i] = prev_bones[i].lerp(_bones[i], curr_bone_lerp)
 		
 	apply_length_constraints()

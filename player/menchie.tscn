@@ -38,18 +38,18 @@ _data = [Vector2(0, 0.6966293), 0.0, -0.1573034, 0, 1, Vector2(1, 0.5393259), -0
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_7ytui"]
-_limits = [0.0, 2000.0, 0.0, 999.0]
-_data = [Vector2(0, 96), 0.0, 0.0, 0, 0, Vector2(999, 1024), 0.0, 0.0, 0, 0]
+_limits = [0.0, 2000.0, 0.0, 1.0]
+_data = [Vector2(0, 96), 0.0, 0.0, 0, 0, Vector2(1, 1024), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_58t8l"]
-_limits = [0.0, 2000.0, 0.0, 999.0]
-_data = [Vector2(0, 128), 0.0, 0.0, 0, 0, Vector2(999, 1024), 0.0, 0.0, 0, 0]
+_limits = [0.0, 2000.0, 0.0, 1.0]
+_data = [Vector2(0, 128), 0.0, 0.0, 0, 0, Vector2(1, 1024), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_y8rs7"]
-_limits = [0.0, 2000.0, 0.0, 999.0]
-_data = [Vector2(0, 160), 0.0, 0.0, 0, 0, Vector2(999, 1024), 0.0, 0.0, 0, 0]
+_limits = [0.0, 2000.0, 0.0, 1.0]
+_data = [Vector2(0, 160), 0.0, 0.0, 0, 0, Vector2(1, 1024), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7ytui"]
@@ -71,7 +71,6 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource("1_3vfhu")
-curr_length = 128.0
 
 [node name="Neck" type="Line2D" parent="Body" unique_id=583472671]
 unique_name_in_owner = true
@@ -238,10 +237,13 @@ script = ExtResource("9_xoblb")
 lines = [NodePath("../Body"), NodePath("../Body/Neck"), NodePath("../Body/Neck/Head/HeadLine2D"), NodePath("../Body/Tail"), NodePath("../Body/Legs/HindLegsCenter/LeftHindLegJoint/LeftHindLeg"), NodePath("../Body/Legs/HindLegsCenter/RightHindLegJoint/RightHindLeg"), NodePath("../Body/Legs/LeftFrontLegJoint/LeftFrontLeg"), NodePath("../Body/Legs/RightFrontLegJoint/RightFrontLeg")]
 color = Color(0.9647059, 0.5058824, 0.5058824, 1)
 
-[node name="GrowthManager" type="Node" parent="." unique_id=1588671250]
+[node name="GrowthManager" type="Node" parent="." unique_id=1588671250 node_paths=PackedStringArray("body", "neck", "tail")]
 script = ExtResource("10_7ytui")
+body = NodePath("../Body")
 body_length = SubResource("Curve_7ytui")
+neck = NodePath("../Body/Neck")
 neck_length = SubResource("Curve_58t8l")
+tail = NodePath("../Body/Tail")
 tail_length = SubResource("Curve_y8rs7")
 
 [node name="OutlineAndShadow" type="CanvasGroup" parent="." unique_id=1774751120 node_paths=PackedStringArray("body_parts")]
