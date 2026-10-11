@@ -28,7 +28,6 @@ func update_attachments() -> void:
 func _update_transform(node: Node2D, pa: PointAttachment) -> void:
 	if pa.update_position:
 		node.global_position = to_global(points[pa.anchor_index])
-		print(self.name, " updating ", node.name, " to position ", node.global_position)
 	if pa.update_rotation != RotationUpdate.NONE:
 		var a = to_global(points[pa.anchor_index])
 		var b = to_global(points[pa.anchor_index - 1])

@@ -54,7 +54,6 @@ func _update_line2d() -> void:
 func _init_bones() -> void:
 	_bones.clear()
 	_bone_length = curr_length / num_bones
-	print(_bone_length)
 	for i in range(num_bones):
 		_bones.append(global_position - Vector2(_bone_length * i, 0.0))
 	
