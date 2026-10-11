@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://cbv5paoxqggec" path="res://player/body_parts/dino_leg.gd" id="5_7hqxn"]
 [ext_resource type="Script" uid="uid://2ghyfad1iqnf" path="res://player/body_parts/dino_shadow.gd" id="6_gb87v"]
 [ext_resource type="Script" uid="uid://bsiwg0lrpeht7" path="res://common/line_2d_color_setter.gd" id="9_xoblb"]
-[ext_resource type="Script" uid="uid://bj4nswbqhdmf6" path="res://player/body_parts/growth_manager.gd" id="10_7ytui"]
+[ext_resource type="Script" uid="uid://bj4nswbqhdmf6" path="res://player/growth/growth_manager.gd" id="10_7ytui"]
 [ext_resource type="Shader" uid="uid://dtea5xajsv35q" path="res://vfx/outline_and_shadow.gdshader" id="10_4760t"]
 
 [sub_resource type="Curve" id="Curve_tbgi4"]

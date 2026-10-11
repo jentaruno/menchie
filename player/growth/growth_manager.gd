@@ -1,4 +1,3 @@
-@tool
 class_name GrowthManager extends Node
 
 @export var body: DinoBody
@@ -12,12 +11,11 @@ class_name GrowthManager extends Node
 @export var tail_length: Curve
 
 const max_level: int = 999
-@export_range(0.0, max_level) var preview_growth: float:
-	set(value):
-		preview_growth = value
-		grow(value / max_level)
+var curr_level: int = 1
 
-func grow(level: float) -> void:
-	body.curr_length = body_length.sample(level)
-	neck.curr_length = neck_length.sample(level)
-	tail.curr_length = tail_length.sample(level)
+func grow(level_amt: int = 1) -> void:
+	curr_level += level_amt
+	var x = float(curr_level) / max_level
+	body.grow_to(body_length.sample(x))
+	neck.grow_to(neck_length.sample(x))
+	tail.grow_to(tail_length.sample(x))

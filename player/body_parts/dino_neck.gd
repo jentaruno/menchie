@@ -1,16 +1,13 @@
 class_name DinoNeck extends AttachableLine2D
 
 #region Exports
-@export var curr_length: float = 128.0:
-	set(value):
-		curr_length = value
-		_initialize_bones()
+@export var curr_length: float = 128.0
 
 ## Number of bones in the neck
 @export_range(3, 50, 1) var num_bones: int = 24:
 	set(value):
 		num_bones = value
-		_initialize_bones()
+		_init_bones()
 
 ## Each bone can rotate a maximum of ± this many degrees
 @export_range(0.0, 360.0, 1.0, "degrees") var bone_max_rotation: float = 10.0:
@@ -46,14 +43,14 @@ var _bone_max_rotation: float
 
 func _ready() -> void:
 	_base_position = global_position
-	_initialize_bones()
+	_init_bones()
 	super.attach(%Head, head_bone_index, true, AttachableLine2D.RotationUpdate.BACKWARD)
 
 func _physics_process(_delta: float) -> void:
 	_base_position = global_position
 	var target_position = get_global_mouse_position()
 	var prev_bones = _bones.duplicate()
-	solve_ik(target_position)
+	_solve_ik(target_position)
 	
 	for i in range(num_bones + 1):
 		# Make lerp amount ease so that the base is always attached to the body,
@@ -62,13 +59,18 @@ func _physics_process(_delta: float) -> void:
 		var curr_bone_lerp = ease(ease_x, ease_amount) + lerp_amount
 		_bones[i] = prev_bones[i].lerp(_bones[i], curr_bone_lerp)
 		
-	apply_length_constraints()
-	update_line2d()
+	_apply_length_constraints()
+	_update_line2d()
 	super(_delta)
 	if show_rotation_constraints:
 		queue_redraw()
 
-func solve_ik(target_position: Vector2) -> void:
+func grow_to(length: float) -> void:
+	curr_length = length
+	_init_bones()
+	super.update_attachments()
+
+func _solve_ik(target_position: Vector2) -> void:
 	var dist := _base_position.distance_squared_to(target_position)
 	
 	if dist > curr_length ** 2:
@@ -127,7 +129,7 @@ func _forward_pass() -> void:
 			
 ## Moves both _bones toward each other to fix bone stretching.
 ## Multiple iterations let corrections ripple through the chain.
-func apply_length_constraints() -> void:
+func _apply_length_constraints() -> void:
 	if not enable_constraint:
 		return
 	_bones[0] = _base_position
@@ -156,14 +158,14 @@ func apply_length_constraints() -> void:
 
 		_bones[0] = _base_position
 
-func update_line2d() -> void:
+func _update_line2d() -> void:
 	clear_points()
 	for pos in _bones:
 		add_point(to_local(pos))
 
 ## Rebuilds bone arrays when num_bones or _curr_length changes.
 ## Starts with straight line upwards so IK has valid initial positions.
-func _initialize_bones() -> void:
+func _init_bones() -> void:
 	_bone_max_rotation = deg_to_rad(bone_max_rotation)
 	# Clear and rebuild arrays
 	_bones.clear()
@@ -175,7 +177,7 @@ func _initialize_bones() -> void:
 		_bone_lengths.append(bone_length)
 		_bones.append(_base_position + Vector2(bone_length * (i + 1), 0.0))
 
-	update_line2d()
+	_update_line2d()
 
 func _draw() -> void:
 	if not show_rotation_constraints:

@@ -19,12 +19,16 @@ func attach(node: Node, anchor_index: int, update_position: bool = true, update_
 	_attachments[node] = PointAttachment.new(anchor_index, update_position, update_rotation)
 
 func _physics_process(_delta: float) -> void:
+	update_attachments()
+	
+func update_attachments() -> void:
 	for node in _attachments:
 		_update_transform(node, _attachments[node])
 		
 func _update_transform(node: Node2D, pa: PointAttachment) -> void:
 	if pa.update_position:
 		node.global_position = to_global(points[pa.anchor_index])
+		print(self.name, " updating ", node.name, " to position ", node.global_position)
 	if pa.update_rotation != RotationUpdate.NONE:
 		var a = to_global(points[pa.anchor_index])
 		var b = to_global(points[pa.anchor_index - 1])
