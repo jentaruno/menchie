@@ -13,9 +13,16 @@ class_name GrowthManager extends Node
 const max_level: int = 999
 var curr_level: int = 1
 
-func grow(level_amt: int = 1) -> void:
-	curr_level += level_amt
+func _ready() -> void:
+	grow_to(curr_level)
+
+func grow_to(level) -> void:
+	curr_level = level
 	var x = float(curr_level) / max_level
 	body.grow_to(body_length.sample(x))
 	neck.grow_to(neck_length.sample(x))
 	tail.grow_to(tail_length.sample(x))
+
+func grow(level_amt: int = 1) -> void:
+	curr_level += level_amt
+	grow_to(curr_level)
