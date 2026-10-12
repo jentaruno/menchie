@@ -61,6 +61,7 @@ func move(delta: float, dir: Vector2) -> void:
 
 func grow(progress: float) -> void:
 	curr_length = Constants.growth_config.body_length.sample(progress)
+	width = Constants.growth_config.body_width.sample(progress)
 	_init_bones()
 	super.update_attachments()
 	

@@ -68,6 +68,7 @@ func _physics_process(_delta: float) -> void:
 
 func grow(progress: float) -> void:
 	curr_length = Constants.growth_config.neck_length.sample(progress)
+	width = Constants.growth_config.neck_width.sample(progress)
 	var new_bone_length = curr_length / num_bones
 	for i in range(len(_bone_lengths)):
 		_bone_lengths[i] = new_bone_length

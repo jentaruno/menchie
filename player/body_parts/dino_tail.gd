@@ -39,6 +39,7 @@ func move(dir: Vector2) -> void:
 
 func grow(progress: float) -> void:
 	curr_length = Constants.growth_config.tail_length.sample(progress)
+	width = Constants.growth_config.tail_width.sample(progress)
 	_init_bones()
 	
 func _update_bones() -> void:

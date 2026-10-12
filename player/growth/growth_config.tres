@@ -7,9 +7,19 @@ _limits = [0.0, 2000.0, 0.0, 1.0]
 _data = [Vector2(0, 96), 0.0, 0.0, 0, 0, Vector2(1, 576), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_qp6tb"]
+_limits = [0.0, 300.0, 0.0, 1.0]
+_data = [Vector2(0, 40), 0.0, 0.0, 0, 0, Vector2(1, 256), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="Curve" id="Curve_7mu7e"]
 _limits = [0.0, 2000.0, 0.0, 1.0]
 _data = [Vector2(0, 96), 0.0, 0.0, 0, 0, Vector2(1, 960), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_rnoce"]
+_limits = [0.0, 300.0, 0.0, 1.0]
+_data = [Vector2(0, 20), 0.0, 0.0, 0, 0, Vector2(1, 120), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_x806q"]
@@ -17,9 +27,17 @@ _limits = [0.0, 2000.0, 0.0, 1.0]
 _data = [Vector2(0, 112), 0.0, 0.0, 0, 0, Vector2(1, 1648), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_gj7mr"]
+_limits = [0.0, 300.0, 0.0, 1.0]
+_data = [Vector2(0, 25), 0.0, 0.0, 0, 0, Vector2(1, 176), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [resource]
 script = ExtResource("1_m7wna")
 body_length = SubResource("Curve_m7wna")
+body_width = SubResource("Curve_qp6tb")
 neck_length = SubResource("Curve_7mu7e")
+neck_width = SubResource("Curve_rnoce")
 tail_length = SubResource("Curve_x806q")
+tail_width = SubResource("Curve_gj7mr")
 metadata/_custom_type_script = "uid://bsumgnxlmg8vm"
