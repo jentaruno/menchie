@@ -6,7 +6,6 @@ class_name DinoBody extends AttachableLine2D
 @export_range(0.0, 360.0, 0.1, "degrees") var turn_speed: float = 0.9
 
 @export_group("Bones")
-@export var curr_length: float = 96.0
 ## Number of bones in the body
 @export var num_bones: int = 24:
 	set(value):
@@ -22,6 +21,7 @@ class_name DinoBody extends AttachableLine2D
 @export var front_legs_bone_index: int = 1
 
 #region Private variables
+var _curr_length: float = 96.0
 var _bones: Array[Vector2] = []
 var _bone_length: float
 var _body_dir: Vector2 = Vector2.RIGHT
@@ -60,7 +60,7 @@ func move(delta: float, dir: Vector2) -> void:
 	_body_dir = _body_dir.slerp(dir.normalized(), turn_speed * delta)
 
 func grow(progress: float) -> void:
-	curr_length = Constants.growth_config.body_length.sample(progress)
+	_curr_length = Constants.growth_config.body_length.sample(progress)
 	width = Constants.growth_config.body_width.sample(progress)
 	_init_bones()
 	super.update_attachments()
@@ -78,7 +78,7 @@ func _update_line2d() -> void:
 
 func _init_bones() -> void:
 	_bones.clear()
-	_bone_length = curr_length / num_bones
+	_bone_length = _curr_length / num_bones
 	for i in range(num_bones):
 		_bones.append(global_position - Vector2(_bone_length * i, 0.0))
 	

@@ -1,8 +1,8 @@
 extends Node
 
-var _curr_level: int = 1
 @onready var menchie: DinoMain = %Menchie
-
+@export_range(1, Constants.max_level) var _curr_level: int = 1
+		
 func _ready() -> void:
 	menchie.grow_to(_curr_level)
 
@@ -12,4 +12,6 @@ func _physics_process(_delta: float) -> void:
 		return
 	
 	_curr_level += -sign(input_dir.y)
+	_curr_level = clampi(_curr_level, 1, Constants.max_level)
 	menchie.grow_to(_curr_level)
+	%LevelLabel.text = "Current Level: " + str(_curr_level)

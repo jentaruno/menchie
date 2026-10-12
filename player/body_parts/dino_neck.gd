@@ -1,8 +1,6 @@
 class_name DinoNeck extends AttachableLine2D
 
 #region Exports
-@export var curr_length: float = 96.0
-
 ## Number of bones in the neck
 @export_range(3, 50, 1) var num_bones: int = 24:
 	set(value):
@@ -35,6 +33,7 @@ class_name DinoNeck extends AttachableLine2D
 #endregion
 
 #region Private variables
+var _curr_length: float = 96.0
 var _bones: Array[Vector2] = []
 var _bone_lengths: Array[float] = []
 var _base_position: Vector2
@@ -67,9 +66,9 @@ func _physics_process(_delta: float) -> void:
 		queue_redraw()
 
 func grow(progress: float) -> void:
-	curr_length = Constants.growth_config.neck_length.sample(progress)
+	_curr_length = Constants.growth_config.neck_length.sample(progress)
 	width = Constants.growth_config.neck_width.sample(progress)
-	var new_bone_length = curr_length / num_bones
+	var new_bone_length = _curr_length / num_bones
 	for i in range(len(_bone_lengths)):
 		_bone_lengths[i] = new_bone_length
 	super.update_attachments()
@@ -77,7 +76,7 @@ func grow(progress: float) -> void:
 func _solve_ik(target_position: Vector2) -> void:
 	var dist := _base_position.distance_squared_to(target_position)
 	
-	if dist > curr_length ** 2:
+	if dist > _curr_length ** 2:
 		_backward_pass()
 		_forward_pass()
 		return
@@ -167,7 +166,7 @@ func _update_line2d() -> void:
 	for pos in _bones:
 		add_point(to_local(pos))
 
-## Rebuilds bone arrays when num_bones or _curr_length changes.
+## Rebuilds bone arrays when num_bones or __curr_length changes.
 ## Starts with straight line upwards so IK has valid initial positions.
 func _init_bones() -> void:
 	_bone_max_rotation = deg_to_rad(bone_max_rotation)
@@ -176,7 +175,7 @@ func _init_bones() -> void:
 	_bone_lengths.clear()
 
 	_bones.append(_base_position)
-	var bone_length: float = curr_length / num_bones
+	var bone_length: float = _curr_length / num_bones
 	for i in range(num_bones):
 		_bone_lengths.append(bone_length)
 		_bones.append(_base_position + Vector2(bone_length * (i + 1), 0.0))

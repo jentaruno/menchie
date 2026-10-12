@@ -8,6 +8,22 @@ script = ExtResource("1_21uak")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=705791958]
 
+[node name="LevelLabel" type="Label" parent="Camera2D" unique_id=116611837]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -145.5
+offset_top = 104.0
+offset_right = 145.5
+offset_bottom = 127.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Current Level: X"
+horizontal_alignment = 1
+
 [node name="Label" type="Label" parent="Camera2D" unique_id=1394004688]
 anchors_preset = 7
 anchor_left = 0.5
@@ -21,6 +37,7 @@ offset_bottom = 152.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Up: Grow Bigger, Down: Grow Smaller"
+horizontal_alignment = 1
 
 [node name="Menchie" parent="." unique_id=731980239 instance=ExtResource("1_hhlfo")]
 unique_name_in_owner = true

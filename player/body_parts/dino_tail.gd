@@ -2,7 +2,6 @@ class_name DinoTail extends Line2D
 
 # Simulates tail movement by fitting a Line2D to a standing wave
 
-var curr_length: float = 112.0
 @export var num_bones: int = 12:
 	set(value):
 		num_bones = value
@@ -21,6 +20,7 @@ var curr_length: float = 112.0
 #var _omega: float
 
 #region Private variables
+var _curr_length: float = 112.0
 var _bones: Array[Vector2] = []
 var _bone_length: float
 var _last_dir: Vector2
@@ -38,7 +38,7 @@ func move(dir: Vector2) -> void:
 	_last_dir = dir.normalized()
 
 func grow(progress: float) -> void:
-	curr_length = Constants.growth_config.tail_length.sample(progress)
+	_curr_length = Constants.growth_config.tail_length.sample(progress)
 	width = Constants.growth_config.tail_width.sample(progress)
 	_init_bones()
 	
@@ -55,7 +55,7 @@ func _update_line2d() -> void:
 		
 func _init_bones() -> void:
 	_bones.clear()
-	_bone_length = curr_length / num_bones
+	_bone_length = _curr_length / num_bones
 	for i in range(num_bones):
 		_bones.append(global_position - Vector2(_bone_length * i, 0.0))
 	
