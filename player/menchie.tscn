@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b3s2a2rc73jma"]
 
 [ext_resource type="Script" uid="uid://3e4fm43ja5j5" path="res://player/body_parts/dino_body.gd" id="1_3vfhu"]
+[ext_resource type="Script" uid="uid://bb48snd8pwmtp" path="res://player/body_parts/dino_main.gd" id="1_58t8l"]
 [ext_resource type="Script" uid="uid://c61iw65qiitaw" path="res://player/body_parts/dino_neck.gd" id="2_oudl4"]
 [ext_resource type="Script" uid="uid://b33mu8sgfqy3p" path="res://player/body_parts/dino_tail.gd" id="3_j3rgi"]
 [ext_resource type="Script" uid="uid://bxudouh4xu2yl" path="res://player/body_parts/dino_head.gd" id="3_woslb"]
@@ -10,7 +11,6 @@
 [ext_resource type="Script" uid="uid://cbv5paoxqggec" path="res://player/body_parts/dino_leg.gd" id="5_7hqxn"]
 [ext_resource type="Script" uid="uid://2ghyfad1iqnf" path="res://player/body_parts/dino_shadow.gd" id="6_gb87v"]
 [ext_resource type="Script" uid="uid://bsiwg0lrpeht7" path="res://common/line_2d_color_setter.gd" id="9_xoblb"]
-[ext_resource type="Script" uid="uid://bj4nswbqhdmf6" path="res://player/growth/growth_manager.gd" id="10_7ytui"]
 [ext_resource type="Shader" uid="uid://dtea5xajsv35q" path="res://vfx/outline_and_shadow.gdshader" id="10_4760t"]
 
 [sub_resource type="Curve" id="Curve_tbgi4"]
@@ -37,21 +37,6 @@ point_count = 4
 _data = [Vector2(0, 0.6966293), 0.0, -0.1573034, 0, 1, Vector2(1, 0.5393259), -0.1573034, 0.0, 1, 0]
 point_count = 2
 
-[sub_resource type="Curve" id="Curve_7ytui"]
-_limits = [0.0, 2000.0, 0.0, 1.0]
-_data = [Vector2(0, 96), 0.0, 0.0, 0, 0, Vector2(1, 1024), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_58t8l"]
-_limits = [0.0, 2000.0, 0.0, 1.0]
-_data = [Vector2(0, 128), 0.0, 0.0, 0, 0, Vector2(1, 1024), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_y8rs7"]
-_limits = [0.0, 2000.0, 0.0, 1.0]
-_data = [Vector2(0, 160), 0.0, 0.0, 0, 0, Vector2(1, 1024), 0.0, 0.0, 0, 0]
-point_count = 2
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7ytui"]
 shader = ExtResource("10_4760t")
 shader_parameter/line_colour = Color(0.7647059, 0.14117648, 0.32941177, 1)
@@ -60,6 +45,7 @@ shader_parameter/shadow_colour = Color(0.28235295, 0.2901961, 0.46666667, 0.3137
 shader_parameter/shadow_offset = Vector2(-5, -5)
 
 [node name="Menchie" type="Node2D" unique_id=1090860608]
+script = ExtResource("1_58t8l")
 
 [node name="Body" type="Line2D" parent="." unique_id=795775763]
 unique_name_in_owner = true
@@ -237,15 +223,6 @@ update_position = false
 script = ExtResource("9_xoblb")
 lines = [NodePath("../Body"), NodePath("../Body/Neck"), NodePath("../Body/Neck/Head/HeadLine2D"), NodePath("../Body/Tail"), NodePath("../Body/Legs/HindLegsCenter/LeftHindLegJoint/LeftHindLeg"), NodePath("../Body/Legs/HindLegsCenter/RightHindLegJoint/RightHindLeg"), NodePath("../Body/Legs/LeftFrontLegJoint/LeftFrontLeg"), NodePath("../Body/Legs/RightFrontLegJoint/RightFrontLeg")]
 color = Color(0.9647059, 0.5058824, 0.5058824, 1)
-
-[node name="GrowthManager" type="Node" parent="." unique_id=1588671250 node_paths=PackedStringArray("body", "neck", "tail")]
-script = ExtResource("10_7ytui")
-body = NodePath("../Body")
-body_length = SubResource("Curve_7ytui")
-neck = NodePath("../Body/Neck")
-neck_length = SubResource("Curve_58t8l")
-tail = NodePath("../Body/Tail")
-tail_length = SubResource("Curve_y8rs7")
 
 [node name="OutlineAndShadow" type="CanvasGroup" parent="." unique_id=1774751120 node_paths=PackedStringArray("body_parts")]
 z_index = -10

@@ -9,7 +9,7 @@ func _ready() -> void:
 	Global.player_camera = self
 
 func _physics_process(delta: float) -> void:
-	var player_pos = Global.player_body.global_position
+	var player_pos = Global.player.global_position
 	var mouse_pos = get_global_mouse_position()
 	var player_to_mouse = (mouse_pos - player_pos).limit_length(max_lookahead_distance)
 	var target = player_pos + player_to_mouse

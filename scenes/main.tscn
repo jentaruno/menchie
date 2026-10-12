@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b3s2a2rc73jma" path="res://player/menchie.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://dq64i38geyd2i" path="res://player/player_controller.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://b58vms8g71mu3" path="res://player/player_camera.gd" id="2_jyhfs"]
+[ext_resource type="Script" uid="uid://bj4nswbqhdmf6" path="res://player/growth/exp_manager.gd" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://cpbtgrvqrdovj" path="res://world/terrain/footstep_manager.gd" id="4_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://66720eogkxjg" path="res://world/vegetation/regular_tree.tscn" id="5_tbgi4"]
 
@@ -19,12 +20,17 @@ gradient = SubResource("Gradient_tefeu")
 [node name="PlayerController" type="Node" parent="Systems" unique_id=1907906850]
 script = ExtResource("1_sugp2")
 
+[node name="ExpManager" type="Node" parent="Systems" unique_id=271100773]
+script = ExtResource("2_tefeu")
+
 [node name="Background" type="Node" parent="." unique_id=1743996493]
 
 [node name="PlayerCamera" type="Camera2D" parent="Background" unique_id=821783281]
 unique_name_in_owner = true
 position_smoothing_speed = 100.0
 script = ExtResource("2_jyhfs")
+smoothing_speed = null
+max_lookahead_distance = null
 
 [node name="DirtTerrain" type="Sprite2D" parent="Background/PlayerCamera" unique_id=1595453022]
 z_index = -50

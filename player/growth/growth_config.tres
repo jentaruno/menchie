@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="GrowthConfig" format=3 uid="uid://cx3mr1vkdeu8o"]
+
+[ext_resource type="Script" uid="uid://bsumgnxlmg8vm" path="res://player/growth/growth_config.gd" id="1_m7wna"]
+
+[sub_resource type="Curve" id="Curve_m7wna"]
+_limits = [0.0, 2000.0, 0.0, 1.0]
+_data = [Vector2(0, 96), 0.0, 0.0, 0, 0, Vector2(1, 1024), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_7mu7e"]
+_limits = [0.0, 2000.0, 0.0, 1.0]
+_data = [Vector2(0, 128), 0.0, 0.0, 0, 0, Vector2(1, 1024), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_x806q"]
+_limits = [0.0, 2000.0, 0.0, 1.0]
+_data = [Vector2(0, 160), 0.0, 0.0, 0, 0, Vector2(1, 1024), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[resource]
+script = ExtResource("1_m7wna")
+body_length = SubResource("Curve_m7wna")
+neck_length = SubResource("Curve_7mu7e")
+tail_length = SubResource("Curve_x806q")
+metadata/_custom_type_script = "uid://bsumgnxlmg8vm"

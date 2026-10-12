@@ -36,7 +36,6 @@ var _move_speed: float = 0.0
 #endregion
 
 func _ready() -> void:
-	Global.player_body = self
 	_init_bones()
 	_init_limbs()
 	_connect_parent()
@@ -60,8 +59,8 @@ func move(delta: float, dir: Vector2) -> void:
 	_last_input_dir = dir
 	_body_dir = _body_dir.slerp(dir.normalized(), turn_speed * delta)
 
-func grow_to(length: float) -> void:
-	curr_length = length
+func grow(progress: float) -> void:
+	curr_length = Constants.growth_config.body_length.sample(progress)
 	_init_bones()
 	super.update_attachments()
 	
@@ -92,9 +91,5 @@ func _init_limbs() -> void:
 	legs.init_legs(_bones[front_legs_bone_index], _bones[hind_legs_bone_index])
 
 func _connect_parent() -> void:
-	var move_args = [
-		{"name": "delta", "type": TYPE_FLOAT},
-		{"name": "dir", "type": TYPE_VECTOR2}
-	]
-	owner.add_user_signal("move", move_args)
-	owner.connect("move", Callable(self, "move"))
+	if owner.has_signal("grew"):
+		owner.connect("grew", Callable(self, "grow"))

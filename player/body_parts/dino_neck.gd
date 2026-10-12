@@ -45,6 +45,7 @@ func _ready() -> void:
 	_base_position = global_position
 	_init_bones()
 	super.attach(%Head, head_bone_index, true, AttachableLine2D.RotationUpdate.BACKWARD)
+	_connect_parent()
 
 func _physics_process(_delta: float) -> void:
 	_base_position = global_position
@@ -65,9 +66,11 @@ func _physics_process(_delta: float) -> void:
 	if show_rotation_constraints:
 		queue_redraw()
 
-func grow_to(length: float) -> void:
-	curr_length = length
-	_init_bones()
+func grow(progress: float) -> void:
+	curr_length = Constants.growth_config.neck_length.sample(progress)
+	var new_bone_length = curr_length / num_bones
+	for i in range(len(_bone_lengths)):
+		_bone_lengths[i] = new_bone_length
 	super.update_attachments()
 
 func _solve_ik(target_position: Vector2) -> void:
@@ -178,6 +181,10 @@ func _init_bones() -> void:
 		_bones.append(_base_position + Vector2(bone_length * (i + 1), 0.0))
 
 	_update_line2d()
+
+func _connect_parent() -> void:
+	if owner.has_signal("grew"):
+		owner.connect("grew", Callable(self, "grow"))
 
 func _draw() -> void:
 	if not show_rotation_constraints:

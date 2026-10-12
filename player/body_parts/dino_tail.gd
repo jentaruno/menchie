@@ -28,6 +28,7 @@ var _last_dir: Vector2
 
 func _ready() -> void:
 	_init_bones()
+	_connect_parent()
 
 func _physics_process(_delta: float) -> void:
 	_update_bones()
@@ -36,8 +37,8 @@ func _physics_process(_delta: float) -> void:
 func move(dir: Vector2) -> void:
 	_last_dir = dir.normalized()
 
-func grow_to(length: float) -> void:
-	curr_length = length
+func grow(progress: float) -> void:
+	curr_length = Constants.growth_config.tail_length.sample(progress)
 	_init_bones()
 	
 func _update_bones() -> void:
@@ -58,3 +59,7 @@ func _init_bones() -> void:
 		_bones.append(global_position - Vector2(_bone_length * i, 0.0))
 	
 	_update_line2d()
+
+func _connect_parent() -> void:
+	if owner.has_signal("grew"):
+		owner.connect("grew", Callable(self, "grow"))
