@@ -1,7 +1,10 @@
 extends Node
 
-var _curr_level: int
+var _curr_level: int = 1
 @onready var menchie: DinoMain = %Menchie
+
+func _ready() -> void:
+	menchie.grow_to(_curr_level)
 
 func _physics_process(_delta: float) -> void:	
 	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")

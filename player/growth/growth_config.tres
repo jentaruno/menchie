@@ -4,17 +4,17 @@
 
 [sub_resource type="Curve" id="Curve_m7wna"]
 _limits = [0.0, 2000.0, 0.0, 1.0]
-_data = [Vector2(0, 96), 0.0, 0.0, 0, 0, Vector2(1, 1024), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 96), 0.0, 0.0, 0, 0, Vector2(1, 576), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_7mu7e"]
 _limits = [0.0, 2000.0, 0.0, 1.0]
-_data = [Vector2(0, 128), 0.0, 0.0, 0, 0, Vector2(1, 1024), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 96), 0.0, 0.0, 0, 0, Vector2(1, 960), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_x806q"]
 _limits = [0.0, 2000.0, 0.0, 1.0]
-_data = [Vector2(0, 160), 0.0, 0.0, 0, 0, Vector2(1, 1024), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 112), 0.0, 0.0, 0, 0, Vector2(1, 1648), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [resource]

@@ -61,7 +61,7 @@ script = ExtResource("1_3vfhu")
 [node name="Neck" type="Line2D" parent="Body" unique_id=583472671]
 unique_name_in_owner = true
 position = Vector2(4, 0)
-points = PackedVector2Array(0, 0, 128, 0)
+points = PackedVector2Array(0, 0, 96, 0)
 width = 20.0
 width_curve = SubResource("Curve_13qdw")
 default_color = Color(0.9647059, 0.5058824, 0.5058824, 1)
@@ -75,7 +75,7 @@ enable_constraint = false
 [node name="Head" type="Area2D" parent="Body/Neck" unique_id=19157097]
 unique_name_in_owner = true
 top_level = true
-position = Vector2(134, 0)
+position = Vector2(102, 0)
 script = ExtResource("3_woslb")
 
 [node name="HeadCollider" type="CollisionShape2D" parent="Body/Neck/Head" unique_id=1157306725]
@@ -116,7 +116,7 @@ position = Vector2(10, 0)
 [node name="Tail" type="Line2D" parent="Body" unique_id=1523876359]
 unique_name_in_owner = true
 position = Vector2(-93, 0)
-points = PackedVector2Array(0, 0, -13.333336, 0, -26.666672, 0, -40, 0, -53.33333, 0, -66.66666, 0, -79.999985, 0, -93.33331, 0, -106.66664, 0, -119.99997, 0, -133.3333, 0, -146.66663, 0)
+points = PackedVector2Array(0, 0, -112, 0)
 width = 25.0
 width_curve = SubResource("Curve_sugp2")
 default_color = Color(0.9647059, 0.5058824, 0.5058824, 1)

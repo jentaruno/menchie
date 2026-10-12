@@ -2,7 +2,7 @@ class_name DinoTail extends Line2D
 
 # Simulates tail movement by fitting a Line2D to a standing wave
 
-var curr_length: float = 160.0
+var curr_length: float = 112.0
 @export var num_bones: int = 12:
 	set(value):
 		num_bones = value

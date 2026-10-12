@@ -1,7 +1,7 @@
 class_name DinoNeck extends AttachableLine2D
 
 #region Exports
-@export var curr_length: float = 128.0
+@export var curr_length: float = 96.0
 
 ## Number of bones in the neck
 @export_range(3, 50, 1) var num_bones: int = 24:
