@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bw621fun1qkq8" path="res://player/growth/debug_growth.gd" id="1_21uak"]
 [ext_resource type="PackedScene" uid="uid://b3s2a2rc73jma" path="res://player/menchie.tscn" id="1_hhlfo"]
 [ext_resource type="Script" uid="uid://b58vms8g71mu3" path="res://player/player_camera.gd" id="2_3k0rb"]
+[ext_resource type="PackedScene" uid="uid://66720eogkxjg" path="res://world/vegetation/regular_tree.tscn" id="4_a6am2"]
 
 [node name="DebugGrowth" type="Node2D" unique_id=1090860608]
 script = ExtResource("1_21uak")
@@ -12,6 +13,9 @@ script = ExtResource("2_3k0rb")
 
 [node name="Menchie" parent="." unique_id=731980239 instance=ExtResource("1_hhlfo")]
 unique_name_in_owner = true
+
+[node name="TreeTop" parent="." unique_id=2114284003 instance=ExtResource("4_a6am2")]
+position = Vector2(0, -148)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=523226512]
 
