@@ -23,9 +23,6 @@ var _last_stepped_leg: int = 0
 var _legs_to_step: Array[int]
 var _is_stepping: bool = false
 
-func _ready() -> void:
-	_connect_parent()
-
 func _physics_process(_delta: float) -> void:
 	_move_legs()
 	if not _is_done_stepping():
@@ -79,7 +76,3 @@ func _maybe_step() -> bool:
 			stepped = true
 		_legs_to_step.append(i)
 	return stepped
-
-func _connect_parent() -> void:
-	if owner.has_signal("grew"):
-		owner.connect("grew", Callable(self, "grow"))

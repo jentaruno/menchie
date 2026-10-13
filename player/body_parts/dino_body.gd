@@ -64,8 +64,6 @@ func grow(progress: float) -> void:
 	width = Constants.growth_config.body_width.sample(progress)
 	_init_bones()
 	super.update_attachments()
-	neck.grow(progress)
-	tail.grow(progress)
 	
 func _update_bones() -> void:
 	_bones[0] = global_position

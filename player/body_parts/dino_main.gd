@@ -1,10 +1,10 @@
 class_name DinoMain extends Node2D
 
 @onready var body: DinoBody = %Body
+@onready var neck: DinoNeck = %Neck
 @onready var head: DinoHead = %Head
-
-## Grow bigger, progress is level/max_level normalised to 0.0-1.0
-signal grew(progress: float)
+@onready var legs: DinoLegs = %Legs
+@onready var tail: DinoTail = %Tail
 
 func _ready() -> void:
 	Global.player = self
@@ -17,5 +17,13 @@ func bite() -> void:
 	head.try_bite()
 	
 func _on_level_up(new_level: int) -> void:
-	var progress = float(new_level) / Constants.max_level
-	grew.emit(progress)
+	grow(new_level)
+
+## Grow the dinosaur, call order is important
+func grow(level: int) -> void:
+	var progress = float(level) / Constants.max_level
+	body.grow(progress)
+	neck.grow(progress)
+	head.grow(progress)
+	legs.grow(progress)
+	tail.grow(progress)
