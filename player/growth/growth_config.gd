@@ -2,6 +2,8 @@
 ## All curve domains represent starting level to max level normalised to 0.0-1.0.
 class_name GrowthConfig extends Resource
 
+@export var camera_zoom: Curve
+
 @export var body_length: Curve
 @export var body_width: Curve
 
@@ -20,5 +22,3 @@ class_name GrowthConfig extends Resource
 @export var leg_scale: Curve
 @export var leg_step_length: Curve
 @export var leg_move_speed: Curve
-
-@export var camera_zoom: Curve

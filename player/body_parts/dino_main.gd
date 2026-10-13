@@ -8,6 +8,7 @@ signal grew(progress: float)
 
 func _ready() -> void:
 	Global.player = self
+	EventBus.level_up.connect(_on_level_up)
 
 func move(delta: float, dir: Vector2) -> void:
 	body.move(delta, dir)
@@ -15,6 +16,6 @@ func move(delta: float, dir: Vector2) -> void:
 func bite() -> void:
 	head.try_bite()
 	
-func grow_to(level: int) -> void:
-	var progress = float(level) / Constants.max_level
+func _on_level_up(new_level: int) -> void:
+	var progress = float(new_level) / Constants.max_level
 	grew.emit(progress)

@@ -5,7 +5,7 @@ class_name DinoNeck extends AttachableLine2D
 @export_range(3, 50, 1) var num_bones: int = 24:
 	set(value):
 		num_bones = value
-		_init_bones()
+		init_bones()
 
 ## Each bone can rotate a maximum of ± this many degrees
 @export_range(0.0, 360.0, 1.0, "degrees") var bone_max_rotation: float = 10.0:
@@ -42,9 +42,7 @@ var _bone_max_rotation: float
 
 func _ready() -> void:
 	_base_position = global_position
-	_init_bones()
 	super.attach(%Head, head_bone_index, true, AttachableLine2D.RotationUpdate.BACKWARD)
-	_connect_parent()
 
 func _physics_process(_delta: float) -> void:
 	_base_position = global_position
@@ -168,7 +166,7 @@ func _update_line2d() -> void:
 
 ## Rebuilds bone arrays when num_bones or __curr_length changes.
 ## Starts with straight line upwards so IK has valid initial positions.
-func _init_bones() -> void:
+func init_bones() -> void:
 	_bone_max_rotation = deg_to_rad(bone_max_rotation)
 	# Clear and rebuild arrays
 	_bones.clear()
@@ -181,10 +179,6 @@ func _init_bones() -> void:
 		_bones.append(_base_position + Vector2(bone_length * (i + 1), 0.0))
 
 	_update_line2d()
-
-func _connect_parent() -> void:
-	if owner.has_signal("grew"):
-		owner.connect("grew", Callable(self, "grow"))
 
 func _draw() -> void:
 	if not show_rotation_constraints:

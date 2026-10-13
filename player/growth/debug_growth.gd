@@ -4,7 +4,8 @@ extends Node
 @export_range(1, Constants.max_level) var _curr_level: int = 1
 		
 func _ready() -> void:
-	menchie.grow_to(_curr_level)
+	EventBus.level_up.emit(_curr_level)
+	%LevelLabel.text = "Current Level: " + str(_curr_level)
 
 func _physics_process(_delta: float) -> void:	
 	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -13,5 +14,5 @@ func _physics_process(_delta: float) -> void:
 	
 	_curr_level += -sign(input_dir.y)
 	_curr_level = clampi(_curr_level, 1, Constants.max_level)
-	menchie.grow_to(_curr_level)
+	EventBus.level_up.emit(_curr_level)
 	%LevelLabel.text = "Current Level: " + str(_curr_level)

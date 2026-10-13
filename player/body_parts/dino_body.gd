@@ -64,6 +64,8 @@ func grow(progress: float) -> void:
 	width = Constants.growth_config.body_width.sample(progress)
 	_init_bones()
 	super.update_attachments()
+	neck.grow(progress)
+	tail.grow(progress)
 	
 func _update_bones() -> void:
 	_bones[0] = global_position
@@ -89,6 +91,8 @@ func _init_limbs() -> void:
 	super.attach(tail, tail_bone_index, true, AttachableLine2D.RotationUpdate.NONE)
 	super.attach(legs, front_legs_bone_index, true, AttachableLine2D.RotationUpdate.NONE)
 	super.attach(legs.hind_legs, hind_legs_bone_index, true, AttachableLine2D.RotationUpdate.NONE)
+	neck.init_bones()
+	tail.init_bones()
 	legs.init_legs(_bones[front_legs_bone_index], _bones[hind_legs_bone_index])
 
 func _connect_parent() -> void:

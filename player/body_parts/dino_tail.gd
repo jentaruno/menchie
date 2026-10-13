@@ -5,7 +5,7 @@ class_name DinoTail extends Line2D
 @export var num_bones: int = 12:
 	set(value):
 		num_bones = value
-		_init_bones()
+		init_bones()
 @export var lambda: float = 256.0
 @export var frequency: float = 0.5
 @export var amplitude: float = 2.0
@@ -26,10 +26,6 @@ var _bone_length: float
 var _last_dir: Vector2
 #endregion
 
-func _ready() -> void:
-	_init_bones()
-	_connect_parent()
-
 func _physics_process(_delta: float) -> void:
 	_update_bones()
 	_update_line2d()
@@ -40,7 +36,7 @@ func move(dir: Vector2) -> void:
 func grow(progress: float) -> void:
 	_curr_length = Constants.growth_config.tail_length.sample(progress)
 	width = Constants.growth_config.tail_width.sample(progress)
-	_init_bones()
+	init_bones()
 	
 func _update_bones() -> void:
 	_bones[0] = global_position
@@ -53,14 +49,10 @@ func _update_line2d() -> void:
 	for pos in _bones:
 		add_point(to_local(pos))
 		
-func _init_bones() -> void:
+func init_bones() -> void:
 	_bones.clear()
 	_bone_length = _curr_length / num_bones
 	for i in range(num_bones):
 		_bones.append(global_position - Vector2(_bone_length * i, 0.0))
 	
 	_update_line2d()
-
-func _connect_parent() -> void:
-	if owner.has_signal("grew"):
-		owner.connect("grew", Callable(self, "grow"))

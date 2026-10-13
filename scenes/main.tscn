@@ -29,8 +29,6 @@ script = ExtResource("2_tefeu")
 unique_name_in_owner = true
 position_smoothing_speed = 100.0
 script = ExtResource("2_jyhfs")
-smoothing_speed = null
-max_lookahead_distance = null
 
 [node name="DirtTerrain" type="Sprite2D" parent="Background/PlayerCamera" unique_id=1595453022]
 z_index = -50

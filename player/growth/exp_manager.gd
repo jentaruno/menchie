@@ -4,11 +4,8 @@ var curr_level: int = 1
 
 func _ready() -> void:
 	await get_tree().process_frame
-	grow_to(curr_level)
+	EventBus.level_up.emit(curr_level)
 
 func handle_level_up() -> void:
 	curr_level += 1
-	grow_to(curr_level)
-
-func grow_to(level: int) -> void:
-	Global.player.grow_to(level)
+	EventBus.level_up.emit(curr_level)

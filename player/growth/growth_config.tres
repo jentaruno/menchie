@@ -13,6 +13,8 @@ _data = [Vector2(0, 40), 0.0, 0.0, 0, 0, Vector2(1, 256), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_c2l3m"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="Curve" id="Curve_4760t"]
 _limits = [0.0, 5.0, 0.0, 1.0]
@@ -56,6 +58,7 @@ point_count = 2
 
 [resource]
 script = ExtResource("1_m7wna")
+camera_zoom = SubResource("Curve_c2l3m")
 body_length = SubResource("Curve_m7wna")
 body_width = SubResource("Curve_qp6tb")
 neck_length = SubResource("Curve_7mu7e")
@@ -66,5 +69,4 @@ tail_width = SubResource("Curve_gj7mr")
 leg_scale = SubResource("Curve_bpwy4")
 leg_step_length = SubResource("Curve_21uak")
 leg_move_speed = SubResource("Curve_7ytui")
-camera_zoom = SubResource("Curve_c2l3m")
 metadata/_custom_type_script = "uid://bsumgnxlmg8vm"
