@@ -16,9 +16,6 @@ func move(delta: float, dir: Vector2) -> void:
 func bite() -> void:
 	head.try_bite()
 	
-func _on_level_up(new_level: int) -> void:
-	grow(new_level)
-
 ## Grow the dinosaur, call order is important
 func grow(level: int) -> void:
 	var progress = float(level) / Constants.max_level
@@ -27,3 +24,6 @@ func grow(level: int) -> void:
 	head.grow(progress)
 	legs.grow(progress)
 	tail.grow(progress)
+	
+func _on_level_up(new_level: int) -> void:
+	grow(new_level)

@@ -6,7 +6,6 @@
 
 [node name="DebugGrowth" type="Node2D" unique_id=1090860608]
 script = ExtResource("1_21uak")
-_curr_level = 999
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=705791958]
 script = ExtResource("2_3k0rb")
