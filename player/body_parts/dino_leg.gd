@@ -11,8 +11,8 @@ func _physics_process(delta: float) -> void:
 			EventBus.step_foot.emit(global_position)
 
 ## Move along with the body
-func move(delta: Vector2, move_rate: float) -> void:
-	position += delta * move_rate
+func move(dir: Vector2, move_rate: float) -> void:
+	position += dir * move_rate
 
 ## Make this leg take a step forward
 func step(target_global_pos: Vector2, speed: float) -> void:

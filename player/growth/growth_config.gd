@@ -4,13 +4,17 @@ class_name GrowthConfig extends Resource
 
 @export var camera_zoom: Curve
 
+@export_group("Body")
 @export var body_length: Curve
 @export var body_width: Curve
 
+@export_group("Neck")
 @export var neck_length: Curve
 @export var neck_width: Curve
+@export var neck_bone_max_rotation: Curve
 @export var head_scale: Curve
 
+@export_group("Tail")
 @export var tail_length: Curve
 @export var tail_width: Curve
 

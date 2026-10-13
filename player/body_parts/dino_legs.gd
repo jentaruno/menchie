@@ -58,8 +58,8 @@ func _is_done_stepping() -> bool:
 
 func _move_legs() -> void:
 	for i in range(legs.size()):
-		var delta = leg_joints[i].global_position - legs[i].global_position
-		legs[i].move(delta, body_follow_rate)
+		var dir = leg_joints[i].global_position - legs[i].global_position
+		legs[i].move(dir, body_follow_rate)
 
 func _maybe_step() -> bool:
 	var stepped = false

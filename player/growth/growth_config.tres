@@ -37,6 +37,11 @@ _limits = [3.0, 52.0, 0.0, 1.0]
 _data = [Vector2(0, 3), 0.0, 119.32366, 0, 0, Vector2(1, 52), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_chjwv"]
+_limits = [10.0, 20.0, 0.0, 1.0]
+_data = [Vector2(0, 10), 0.0, 0.0, 0, 0, Vector2(1, 20), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="Curve" id="Curve_7mu7e"]
 _limits = [0.0, 2000.0, 0.0, 1.0]
 _data = [Vector2(0, 96), 0.0, 0.0, 0, 0, Vector2(1, 960), 0.0, 0.0, 0, 0]
@@ -64,6 +69,7 @@ body_length = SubResource("Curve_m7wna")
 body_width = SubResource("Curve_qp6tb")
 neck_length = SubResource("Curve_7mu7e")
 neck_width = SubResource("Curve_rnoce")
+neck_bone_max_rotation = SubResource("Curve_chjwv")
 head_scale = SubResource("Curve_4760t")
 tail_length = SubResource("Curve_x806q")
 tail_width = SubResource("Curve_gj7mr")
