@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 		return
 		
 	var step = _body_dir * _move_speed * delta
-	owner.global_position += step
+	global_position += step
 	
 	_update_bones()
 	_update_line2d()

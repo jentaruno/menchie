@@ -52,7 +52,8 @@ func is_stepping() -> bool:
 	
 func _is_done_stepping() -> bool:
 	for i in range(_legs_to_step.size()-1, -1, -1):
-		if not legs[i].is_stepping():
+		var leg_index = _legs_to_step[i]
+		if not legs[leg_index].is_stepping():
 			_legs_to_step.remove_at(i)
 	return _legs_to_step.is_empty()
 

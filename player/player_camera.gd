@@ -11,7 +11,7 @@ func _ready() -> void:
 	EventBus.level_up.connect(_on_level_up)
 
 func _physics_process(delta: float) -> void:
-	var player_pos = Global.player.global_position
+	var player_pos = Global.player.body.global_position
 	var mouse_pos = get_global_mouse_position()
 	var player_to_mouse = (mouse_pos - player_pos).limit_length(_max_lookahead_distance)
 	var target = player_pos + player_to_mouse

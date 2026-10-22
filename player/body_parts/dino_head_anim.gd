@@ -36,7 +36,6 @@ func _play_bite_animations() -> void:
 	tween.finished.connect(stop_bite)
 
 func _connect_parent() -> void:
-	z_index = owner.z_index + 1
 	if not owner.has_user_signal("bite"):
 		owner.add_user_signal("bite")
 	owner.connect("bite", Callable(self, "bite"))

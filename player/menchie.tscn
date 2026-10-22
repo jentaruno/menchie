@@ -27,19 +27,19 @@ point_count = 4
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.17142856, 0.9550562), -0.8374342, -0.8374342, 0, 0, Vector2(1, 0.50561804), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xrivr"]
-radius = 9.0
-height = 26.0
-
-[sub_resource type="Curve" id="Curve_woslb"]
-_data = [Vector2(0, 0.6966293), 0.0, -0.1573034, 0, 1, Vector2(1, 0.5393259), -0.1573034, 0.0, 1, 0]
-point_count = 2
-
 [sub_resource type="Curve" id="Curve_sugp2"]
 _data = [Vector2(0, 1), 0.0, 8.1128536e-07, 0, 0, Vector2(0.08571429, 1), -0.5352683, -0.5352683, 0, 0, Vector2(0.58775514, 0.35789478), -1.249746, -1.249746, 0, 0, Vector2(1, 0), -0.1376404, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="Curve" id="Curve_xrivr"]
+_data = [Vector2(0, 0.6966293), 0.0, -0.1573034, 0, 1, Vector2(1, 0.5393259), -0.1573034, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xrivr"]
+radius = 9.0
+height = 26.0
+
+[sub_resource type="Curve" id="Curve_woslb"]
 _data = [Vector2(0, 0.6966293), 0.0, -0.1573034, 0, 1, Vector2(1, 0.5393259), -0.1573034, 0.0, 1, 0]
 point_count = 2
 
@@ -75,47 +75,6 @@ script = ExtResource("2_oudl4")
 constraint_iterations = 20
 enable_constraint = false
 
-[node name="Head" type="Area2D" parent="OutlineAndShadow/Body/Neck" unique_id=19157097]
-unique_name_in_owner = true
-top_level = true
-position = Vector2(102, 0)
-script = ExtResource("3_woslb")
-
-[node name="HeadCollider" type="CollisionShape2D" parent="OutlineAndShadow/Body/Neck/Head" unique_id=1157306725]
-unique_name_in_owner = true
-position = Vector2(4, 0)
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_xrivr")
-
-[node name="HeadLine2D" type="Line2D" parent="OutlineAndShadow/Body/Neck/Head" unique_id=2141681677]
-unique_name_in_owner = true
-points = PackedVector2Array(0, 0, 3, 0, 5, 0)
-width = 20.0
-width_curve = SubResource("Curve_woslb")
-default_color = Color(0.9647059, 0.5058824, 0.5058824, 1)
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-script = ExtResource("4_gx70a")
-
-[node name="LeftEye" type="Line2D" parent="OutlineAndShadow/Body/Neck/Head/HeadLine2D" unique_id=1224438460]
-points = PackedVector2Array(1, 4, 3, 4)
-width = 1.5
-default_color = Color(0, 0, 0, 1)
-
-[node name="RightEye" type="Line2D" parent="OutlineAndShadow/Body/Neck/Head/HeadLine2D" unique_id=540471322]
-points = PackedVector2Array(1, -4, 3, -4)
-width = 1.5
-default_color = Color(0, 0, 0, 1)
-
-[node name="BiteParticles" parent="OutlineAndShadow/Body/Neck/Head/HeadLine2D" unique_id=302109704 instance=ExtResource("4_q27ga")]
-unique_name_in_owner = true
-position = Vector2(5, 0)
-
-[node name="TeethMarker2D" type="Marker2D" parent="OutlineAndShadow/Body/Neck/Head" unique_id=280378663]
-unique_name_in_owner = true
-position = Vector2(10, 0)
-
 [node name="Tail" type="Line2D" parent="OutlineAndShadow/Body" unique_id=1523876359]
 unique_name_in_owner = true
 position = Vector2(-93, 0)
@@ -128,24 +87,33 @@ begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource("3_j3rgi")
 
-[node name="Legs" type="Node2D" parent="OutlineAndShadow/Body" unique_id=271228945]
+[node name="Legs" type="Node2D" parent="OutlineAndShadow/Body" unique_id=2115224768]
 unique_name_in_owner = true
-z_index = -1
-position = Vector2(-1, 0)
 script = ExtResource("4_dwkui")
+
+[node name="LeftFrontLegJoint" type="Marker2D" parent="OutlineAndShadow/Body/Legs" unique_id=448959002]
+unique_name_in_owner = true
+position = Vector2(0, -9)
+
+[node name="RightFrontLegJoint" type="Marker2D" parent="OutlineAndShadow/Body/Legs" unique_id=48709097]
+unique_name_in_owner = true
+position = Vector2(0, 9)
 
 [node name="HindLegsCenter" type="Node2D" parent="OutlineAndShadow/Body/Legs" unique_id=1657776198]
 unique_name_in_owner = true
-position = Vector2(-92, 0)
+position = Vector2(-94, 0)
 
-[node name="LeftHindLegJoint" type="Marker2D" parent="OutlineAndShadow/Body/Legs/HindLegsCenter" unique_id=80706251]
+[node name="LeftHindLegJoint" type="Marker2D" parent="OutlineAndShadow/Body/Legs/HindLegsCenter" unique_id=345339581]
 unique_name_in_owner = true
 position = Vector2(0, -11)
 
-[node name="LeftHindLeg" type="Line2D" parent="OutlineAndShadow/Body/Legs/HindLegsCenter/LeftHindLegJoint" unique_id=1748365967]
+[node name="RightHindLegJoint" type="Marker2D" parent="OutlineAndShadow/Body/Legs/HindLegsCenter" unique_id=1276653699]
 unique_name_in_owner = true
-top_level = true
-position = Vector2(-93, -11)
+position = Vector2(0, 11)
+
+[node name="LeftHindLeg" type="Line2D" parent="OutlineAndShadow" unique_id=1748365967]
+unique_name_in_owner = true
+position = Vector2(-94, -11)
 points = PackedVector2Array(0, 0, 5, -2)
 width = 20.0
 width_curve = SubResource("Curve_xrivr")
@@ -155,19 +123,9 @@ begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource("5_7hqxn")
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="OutlineAndShadow/Body/Legs/HindLegsCenter/LeftHindLegJoint" unique_id=1816782397]
-remote_path = NodePath("../LeftHindLeg")
-update_position = false
-update_scale = false
-
-[node name="RightHindLegJoint" type="Marker2D" parent="OutlineAndShadow/Body/Legs/HindLegsCenter" unique_id=126644184]
+[node name="RightHindLeg" type="Line2D" parent="OutlineAndShadow" unique_id=1416381883]
 unique_name_in_owner = true
-position = Vector2(0, 11)
-
-[node name="RightHindLeg" type="Line2D" parent="OutlineAndShadow/Body/Legs/HindLegsCenter/RightHindLegJoint" unique_id=1416381883]
-unique_name_in_owner = true
-top_level = true
-position = Vector2(-93, 11)
+position = Vector2(-94, 11)
 points = PackedVector2Array(0, 0, 5, 2)
 width = 20.0
 width_curve = SubResource("Curve_xrivr")
@@ -177,19 +135,9 @@ begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource("5_7hqxn")
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="OutlineAndShadow/Body/Legs/HindLegsCenter/RightHindLegJoint" unique_id=825665872]
-remote_path = NodePath("../RightHindLeg")
-update_position = false
-update_scale = false
-
-[node name="LeftFrontLegJoint" type="Marker2D" parent="OutlineAndShadow/Body/Legs" unique_id=564908414]
+[node name="LeftFrontLeg" type="Line2D" parent="OutlineAndShadow" unique_id=1378318585]
 unique_name_in_owner = true
 position = Vector2(0, -9)
-
-[node name="LeftFrontLeg" type="Line2D" parent="OutlineAndShadow/Body/Legs/LeftFrontLegJoint" unique_id=1378318585]
-unique_name_in_owner = true
-top_level = true
-position = Vector2(-1, -9)
 points = PackedVector2Array(0, 0, -5, -3)
 width = 20.0
 width_curve = SubResource("Curve_xrivr")
@@ -199,19 +147,9 @@ begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource("5_7hqxn")
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="OutlineAndShadow/Body/Legs/LeftFrontLegJoint" unique_id=603389620]
-remote_path = NodePath("../LeftFrontLeg")
-update_position = false
-update_scale = false
-
-[node name="RightFrontLegJoint" type="Marker2D" parent="OutlineAndShadow/Body/Legs" unique_id=874093854]
+[node name="RightFrontLeg" type="Line2D" parent="OutlineAndShadow" unique_id=1075372920]
 unique_name_in_owner = true
 position = Vector2(0, 9)
-
-[node name="RightFrontLeg" type="Line2D" parent="OutlineAndShadow/Body/Legs/RightFrontLegJoint" unique_id=1075372920]
-unique_name_in_owner = true
-top_level = true
-position = Vector2(-1, 9)
 points = PackedVector2Array(0, 0, -5, 3)
 width = 20.0
 width_curve = SubResource("Curve_xrivr")
@@ -221,12 +159,47 @@ begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource("5_7hqxn")
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="OutlineAndShadow/Body/Legs/RightFrontLegJoint" unique_id=1067879928]
-remote_path = NodePath("../RightFrontLeg")
-update_position = false
-update_scale = false
+[node name="Head" type="Area2D" parent="OutlineAndShadow" unique_id=19157097]
+unique_name_in_owner = true
+position = Vector2(106, 0)
+script = ExtResource("3_woslb")
+
+[node name="HeadCollider" type="CollisionShape2D" parent="OutlineAndShadow/Head" unique_id=1157306725]
+unique_name_in_owner = true
+position = Vector2(4, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_xrivr")
+
+[node name="HeadLine2D" type="Line2D" parent="OutlineAndShadow/Head" unique_id=2141681677]
+unique_name_in_owner = true
+points = PackedVector2Array(0, 0, 3, 0, 5, 0)
+width = 20.0
+width_curve = SubResource("Curve_woslb")
+default_color = Color(0.9647059, 0.5058824, 0.5058824, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("4_gx70a")
+
+[node name="LeftEye" type="Line2D" parent="OutlineAndShadow/Head/HeadLine2D" unique_id=1224438460]
+points = PackedVector2Array(1, 4, 3, 4)
+width = 1.5
+default_color = Color(0, 0, 0, 1)
+
+[node name="RightEye" type="Line2D" parent="OutlineAndShadow/Head/HeadLine2D" unique_id=540471322]
+points = PackedVector2Array(1, -4, 3, -4)
+width = 1.5
+default_color = Color(0, 0, 0, 1)
+
+[node name="BiteParticles" parent="OutlineAndShadow/Head/HeadLine2D" unique_id=302109704 instance=ExtResource("4_q27ga")]
+unique_name_in_owner = true
+position = Vector2(5, 0)
+
+[node name="TeethMarker2D" type="Marker2D" parent="OutlineAndShadow/Head" unique_id=280378663]
+unique_name_in_owner = true
+position = Vector2(10, 0)
 
 [node name="ColorSetter" type="Node" parent="." unique_id=774902310 node_paths=PackedStringArray("lines")]
 script = ExtResource("9_xoblb")
-lines = [NodePath("../OutlineAndShadow/Body"), NodePath("../OutlineAndShadow/Body/Neck"), NodePath("../OutlineAndShadow/Body/Neck/Head/HeadLine2D"), NodePath("../OutlineAndShadow/Body/Tail"), NodePath("../OutlineAndShadow/Body/Legs/HindLegsCenter/LeftHindLegJoint/LeftHindLeg"), NodePath("../OutlineAndShadow/Body/Legs/HindLegsCenter/RightHindLegJoint/RightHindLeg"), NodePath("../OutlineAndShadow/Body/Legs/LeftFrontLegJoint/LeftFrontLeg"), NodePath("../OutlineAndShadow/Body/Legs/RightFrontLegJoint/RightFrontLeg")]
+lines = [NodePath("../OutlineAndShadow/Body"), NodePath("../OutlineAndShadow/Body/Neck"), NodePath("../OutlineAndShadow/Head/HeadLine2D"), NodePath("../OutlineAndShadow/Body/Tail"), NodePath("../OutlineAndShadow/LeftHindLeg"), NodePath("../OutlineAndShadow/RightHindLeg"), NodePath("../OutlineAndShadow/LeftFrontLeg"), NodePath("../OutlineAndShadow/RightFrontLeg")]
 color = Color(0.9647059, 0.5058824, 0.5058824, 1)
