@@ -6,10 +6,6 @@ class_name DinoBody extends AttachableLine2D
 @export_range(0.0, 360.0, 0.1, "degrees") var turn_speed: float = 0.9
 
 @export_group("Bones")
-@export var curr_length: float = 96.0:
-	set(value):
-		curr_length = value
-		_init_bones()
 ## Number of bones in the body
 @export var num_bones: int = 24:
 	set(value):
@@ -25,6 +21,7 @@ class_name DinoBody extends AttachableLine2D
 @export var front_legs_bone_index: int = 1
 
 #region Private variables
+var _curr_length: float = 96.0
 var _bones: Array[Vector2] = []
 var _bone_length: float
 var _body_dir: Vector2 = Vector2.RIGHT
@@ -39,7 +36,6 @@ var _move_speed: float = 0.0
 #endregion
 
 func _ready() -> void:
-	Global.player_body = self
 	_init_bones()
 	_init_limbs()
 	_connect_parent()
@@ -49,7 +45,7 @@ func _physics_process(delta: float) -> void:
 		return
 		
 	var step = _body_dir * _move_speed * delta
-	owner.global_position += step
+	global_position += step
 	
 	_update_bones()
 	_update_line2d()
@@ -62,6 +58,12 @@ func move(delta: float, dir: Vector2) -> void:
 	_move_speed = move_speed
 	_last_input_dir = dir
 	_body_dir = _body_dir.slerp(dir.normalized(), turn_speed * delta)
+
+func grow(progress: float) -> void:
+	_curr_length = Constants.growth_config.body_length.sample(progress)
+	width = Constants.growth_config.body_width.sample(progress)
+	_init_bones()
+	super.update_attachments()
 	
 func _update_bones() -> void:
 	_bones[0] = global_position
@@ -76,7 +78,7 @@ func _update_line2d() -> void:
 
 func _init_bones() -> void:
 	_bones.clear()
-	_bone_length = curr_length / num_bones
+	_bone_length = _curr_length / num_bones
 	for i in range(num_bones):
 		_bones.append(global_position - Vector2(_bone_length * i, 0.0))
 	
@@ -87,12 +89,10 @@ func _init_limbs() -> void:
 	super.attach(tail, tail_bone_index, true, AttachableLine2D.RotationUpdate.NONE)
 	super.attach(legs, front_legs_bone_index, true, AttachableLine2D.RotationUpdate.NONE)
 	super.attach(legs.hind_legs, hind_legs_bone_index, true, AttachableLine2D.RotationUpdate.NONE)
+	neck.init_bones()
+	tail.init_bones()
 	legs.init_legs(_bones[front_legs_bone_index], _bones[hind_legs_bone_index])
 
 func _connect_parent() -> void:
-	var move_args = [
-		{"name": "delta", "type": TYPE_FLOAT},
-		{"name": "dir", "type": TYPE_VECTOR2}
-	]
-	owner.add_user_signal("move", move_args)
-	owner.connect("move", Callable(self, "move"))
+	if owner.has_signal("grew"):
+		owner.connect("grew", Callable(self, "grow"))

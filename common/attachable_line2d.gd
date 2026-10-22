@@ -19,6 +19,9 @@ func attach(node: Node, anchor_index: int, update_position: bool = true, update_
 	_attachments[node] = PointAttachment.new(anchor_index, update_position, update_rotation)
 
 func _physics_process(_delta: float) -> void:
+	update_attachments()
+	
+func update_attachments() -> void:
 	for node in _attachments:
 		_update_transform(node, _attachments[node])
 		

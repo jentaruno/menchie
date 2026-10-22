@@ -1,16 +1,11 @@
 class_name DinoNeck extends AttachableLine2D
 
 #region Exports
-@export var curr_length: float = 128.0:
-	set(value):
-		curr_length = value
-		_initialize_bones()
-
 ## Number of bones in the neck
 @export_range(3, 50, 1) var num_bones: int = 24:
 	set(value):
 		num_bones = value
-		_initialize_bones()
+		init_bones()
 
 ## Each bone can rotate a maximum of ± this many degrees
 @export_range(0.0, 360.0, 1.0, "degrees") var bone_max_rotation: float = 10.0:
@@ -29,13 +24,16 @@ class_name DinoNeck extends AttachableLine2D
 @export_range(1, 20, 1) var constraint_iterations: int = 10
 ## Enable or disable constraints
 @export var enable_constraint: bool = true
-## Movement lerp
-@export var lerp_amount: float = 0.05
 ## Show rotation constraint gizmos during runtime?
 @export var show_rotation_constraints: bool = false
+## Per-bone movement lerp
+@export var lerp_amount: float = 0.05
+## Per-bone easing (to make bones further from the base have a higher lerp amount)
+@export var ease_amount: float = 1.2
 #endregion
 
 #region Private variables
+var _curr_length: float = 96.0
 var _bones: Array[Vector2] = []
 var _bone_lengths: Array[float] = []
 var _base_position: Vector2
@@ -44,32 +42,40 @@ var _bone_max_rotation: float
 
 func _ready() -> void:
 	_base_position = global_position
-	_initialize_bones()
 	super.attach(%Head, head_bone_index, true, AttachableLine2D.RotationUpdate.BACKWARD)
 
 func _physics_process(_delta: float) -> void:
 	_base_position = global_position
-	var target_position: Vector2 = get_global_mouse_position()
+	var target_position = get_global_mouse_position()
 	var prev_bones = _bones.duplicate()
-	solve_ik(target_position)
+	_solve_ik(target_position)
 	
 	for i in range(num_bones + 1):
 		# Make lerp amount ease so that the base is always attached to the body,
 		# but the tip moves smoothly
 		var ease_x = float(num_bones - i) / num_bones
-		var curr_bone_lerp = ease(ease_x, 2) + lerp_amount
+		var curr_bone_lerp = ease(ease_x, ease_amount) + lerp_amount
 		_bones[i] = prev_bones[i].lerp(_bones[i], curr_bone_lerp)
 		
-	apply_length_constraints()
-	update_line2d()
+	_apply_length_constraints()
+	_update_line2d()
 	super(_delta)
 	if show_rotation_constraints:
 		queue_redraw()
 
-func solve_ik(target_position: Vector2) -> void:
+func grow(progress: float) -> void:
+	_curr_length = Constants.growth_config.neck_length.sample(progress)
+	width = Constants.growth_config.neck_width.sample(progress)
+	_bone_max_rotation = deg_to_rad(Constants.growth_config.neck_bone_max_rotation.sample(progress))
+	var new_bone_length = _curr_length / num_bones
+	for i in range(len(_bone_lengths)):
+		_bone_lengths[i] = new_bone_length
+	super.update_attachments()
+
+func _solve_ik(target_position: Vector2) -> void:
 	var dist := _base_position.distance_squared_to(target_position)
 	
-	if dist > curr_length ** 2:
+	if dist > _curr_length ** 2:
 		_backward_pass()
 		_forward_pass()
 		return
@@ -125,7 +131,7 @@ func _forward_pass() -> void:
 			
 ## Moves both _bones toward each other to fix bone stretching.
 ## Multiple iterations let corrections ripple through the chain.
-func apply_length_constraints() -> void:
+func _apply_length_constraints() -> void:
 	if not enable_constraint:
 		return
 	_bones[0] = _base_position
@@ -154,26 +160,26 @@ func apply_length_constraints() -> void:
 
 		_bones[0] = _base_position
 
-func update_line2d() -> void:
+func _update_line2d() -> void:
 	clear_points()
 	for pos in _bones:
 		add_point(to_local(pos))
 
-## Rebuilds bone arrays when num_bones or _curr_length changes.
+## Rebuilds bone arrays when num_bones or __curr_length changes.
 ## Starts with straight line upwards so IK has valid initial positions.
-func _initialize_bones() -> void:
+func init_bones() -> void:
 	_bone_max_rotation = deg_to_rad(bone_max_rotation)
 	# Clear and rebuild arrays
 	_bones.clear()
 	_bone_lengths.clear()
 
 	_bones.append(_base_position)
-	var bone_length: float = curr_length / num_bones
+	var bone_length: float = _curr_length / num_bones
 	for i in range(num_bones):
 		_bone_lengths.append(bone_length)
 		_bones.append(_base_position + Vector2(bone_length * (i + 1), 0.0))
 
-	update_line2d()
+	_update_line2d()
 
 func _draw() -> void:
 	if not show_rotation_constraints:
