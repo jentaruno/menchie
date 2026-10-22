@@ -1,7 +1,7 @@
 class_name DinoLegs extends Node2D
 
 ## Rate at which legs follow the body's position. 1 = fully following, 0 = not following at all
-@export var body_follow_rate: float = 0.15
+@export var body_follow_rate: float = 0.08
 
 @onready var hind_legs = %HindLegsCenter
 @onready var legs: Array[DinoLeg] = [
