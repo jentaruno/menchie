@@ -33,7 +33,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 7), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_21uak"]
-_limits = [5.0, 52.0, 0.0, 1.0]
+_limits = [8.0, 52.0, 0.0, 1.0]
 _data = [Vector2(0, 8), 0.0, 119.32366, 0, 0, Vector2(1, 52), 0.0, 0.0, 0, 0]
 point_count = 2
 
