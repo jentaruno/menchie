@@ -5,13 +5,20 @@
 [ext_resource type="Script" uid="uid://b58vms8g71mu3" path="res://player/player_camera.gd" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://bj4nswbqhdmf6" path="res://player/growth/exp_manager.gd" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://cpbtgrvqrdovj" path="res://world/terrain/footstep_manager.gd" id="4_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://66720eogkxjg" path="res://world/vegetation/regular_tree.tscn" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://uydgd1fm3dq8" path="res://world/terrain/world_chunk.gd" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://dqqa8hw5goqu1" path="res://world/vegetation/fern.tscn" id="8_85g3d"]
+[ext_resource type="Script" uid="uid://cr28u2xyimtte" path="res://common/poisson_disc_sampling.gd" id="8_tipki"]
 
 [sub_resource type="Gradient" id="Gradient_tefeu"]
 colors = PackedColorArray(0.8901961, 0.78431374, 0.5882353, 1, 0.8901961, 0.78431374, 0.5882353, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_o6xl0"]
 gradient = SubResource("Gradient_tefeu")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xrivr"]
+noise_type = 2
+frequency = 0.0001
+fractal_type = 0
 
 [node name="Node2D" type="Node2D" unique_id=2122483614]
 
@@ -44,5 +51,14 @@ script = ExtResource("4_o6xl0")
 unique_name_in_owner = true
 z_index = 20
 
-[node name="TreeTop" parent="Entities" unique_id=2114284003 instance=ExtResource("5_tbgi4")]
-position = Vector2(157, 0)
+[node name="WorldChunk" type="Node2D" parent="Entities" unique_id=557171771]
+script = ExtResource("7_o6xl0")
+grid_size = Vector2i(25, 20)
+grid_color = Color(0, 0.6784314, 0.6784314, 0.49803922)
+fern_scene = ExtResource("8_85g3d")
+
+[node name="PoissonDiscSampler" type="Node" parent="Entities/WorldChunk" unique_id=337711149]
+script = ExtResource("8_tipki")
+radius = 24.0
+noise = SubResource("FastNoiseLite_xrivr")
+max_spacing = 240.0
