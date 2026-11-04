@@ -21,9 +21,9 @@ class_name PoissonDiscSampler extends Node2D
 
 @export var min_spacing := 30.0
 @export var max_spacing := 120.0
-@export var debug_noise_samples: bool = false:
+@export var show_debug_noise_samples: bool = false:
 	set(value):
-		debug_noise_samples = value
+		show_debug_noise_samples = value
 		queue_redraw()
 
 # Dictionary of grid coordinate to index in the points list
@@ -90,7 +90,7 @@ func _is_valid(candidate: Vector2) -> bool:
 	return true
 
 func _draw() -> void:
-	if not Engine.is_editor_hint() or not debug_noise_samples or noise == null or _cell_size <= 0.0:
+	if not show_debug_noise_samples or noise == null or _cell_size <= 0.0:
 		z_index = 0
 		return
 	

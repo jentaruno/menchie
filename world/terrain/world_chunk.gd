@@ -13,14 +13,17 @@ extends Node2D
 	set(value):
 		grid_color = value
 		queue_redraw()
-
+@export var show_debug_grid: bool = false:
+	set(value):
+		show_debug_grid = value
+		queue_redraw()
 
 var grid_world_size: Vector2:
 	get:
 		return Vector2(grid_size.x * cell_size.x, grid_size.y * cell_size.y)
 	
 func _draw() -> void:
-	if not Engine.is_editor_hint():
+	if not show_debug_grid:
 		return
 	
 	var left = -grid_size.x / 2.0

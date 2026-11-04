@@ -56,21 +56,22 @@ z_index = 20
 
 [node name="WorldChunk" type="Node2D" parent="Entities" unique_id=557171771]
 script = ExtResource("7_o6xl0")
+grid_size = Vector2i(25, 20)
+grid_color = Color(1.0588765e-06, 0.78538746, 0.78538716, 0.49803922)
 
 [node name="FernPlacementGenerator" type="Node2D" parent="Entities/WorldChunk" unique_id=1599059682 node_paths=PackedStringArray("position_sampler", "spawner")]
+position = Vector2(-400, -320)
 script = ExtResource("10_choun")
 position_sampler = NodePath("PoissonDiscSampler")
 spawner = NodePath("RandomTransformSpawner")
 
 [node name="PoissonDiscSampler" type="Node2D" parent="Entities/WorldChunk/FernPlacementGenerator" unique_id=337711149]
-z_index = -1
 script = ExtResource("8_tipki")
 radius = 16.0
 sample_region_size = Vector2(800, 640)
 noise = SubResource("FastNoiseLite_xrivr")
 spawn_threshold = 0.5
 max_spacing = 60.0
-debug_noise_samples = true
 
 [node name="RandomTransformSpawner" type="Node2D" parent="Entities/WorldChunk/FernPlacementGenerator" unique_id=1351284227]
 script = ExtResource("8_choun")
