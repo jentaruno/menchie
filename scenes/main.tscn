@@ -5,13 +5,23 @@
 [ext_resource type="Script" uid="uid://b58vms8g71mu3" path="res://player/player_camera.gd" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://bj4nswbqhdmf6" path="res://player/growth/exp_manager.gd" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://cpbtgrvqrdovj" path="res://world/terrain/footstep_manager.gd" id="4_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://66720eogkxjg" path="res://world/vegetation/regular_tree.tscn" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://uydgd1fm3dq8" path="res://world/terrain/world_chunk.gd" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://dqqa8hw5goqu1" path="res://world/vegetation/fern.tscn" id="8_85g3d"]
+[ext_resource type="Script" uid="uid://bm7dl7s3uyyrn" path="res://common/random_transform_spawner.gd" id="8_choun"]
+[ext_resource type="Script" uid="uid://cr28u2xyimtte" path="res://common/poisson_disc_sampling.gd" id="8_tipki"]
+[ext_resource type="Script" uid="uid://b66s6pl4h3lks" path="res://common/object_placement_generator.gd" id="10_choun"]
 
 [sub_resource type="Gradient" id="Gradient_tefeu"]
 colors = PackedColorArray(0.8901961, 0.78431374, 0.5882353, 1, 0.8901961, 0.78431374, 0.5882353, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_o6xl0"]
 gradient = SubResource("Gradient_tefeu")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xrivr"]
+noise_type = 2
+fractal_type = 0
+cellular_distance_function = 1
+cellular_return_type = 0
 
 [node name="Node2D" type="Node2D" unique_id=2122483614]
 
@@ -44,5 +54,28 @@ script = ExtResource("4_o6xl0")
 unique_name_in_owner = true
 z_index = 20
 
-[node name="TreeTop" parent="Entities" unique_id=2114284003 instance=ExtResource("5_tbgi4")]
-position = Vector2(157, 0)
+[node name="WorldChunk" type="Node2D" parent="Entities" unique_id=557171771]
+script = ExtResource("7_o6xl0")
+grid_size = Vector2i(25, 20)
+grid_color = Color(1.0588765e-06, 0.78538746, 0.78538716, 0.49803922)
+
+[node name="FernPlacementGenerator" type="Node2D" parent="Entities/WorldChunk" unique_id=1599059682 node_paths=PackedStringArray("position_sampler", "spawner")]
+position = Vector2(-400, -320)
+script = ExtResource("10_choun")
+position_sampler = NodePath("PoissonDiscSampler")
+spawner = NodePath("RandomTransformSpawner")
+
+[node name="PoissonDiscSampler" type="Node2D" parent="Entities/WorldChunk/FernPlacementGenerator" unique_id=337711149]
+script = ExtResource("8_tipki")
+radius = 16.0
+sample_region_size = Vector2(800, 640)
+noise = SubResource("FastNoiseLite_xrivr")
+spawn_threshold = 0.5
+max_spacing = 60.0
+
+[node name="RandomTransformSpawner" type="Node2D" parent="Entities/WorldChunk/FernPlacementGenerator" unique_id=1351284227]
+script = ExtResource("8_choun")
+object = ExtResource("8_85g3d")
+min_scale = 0.8
+max_scale = 1.2
+max_rotation = 360.0

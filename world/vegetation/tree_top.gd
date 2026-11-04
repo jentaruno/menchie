@@ -1,7 +1,7 @@
 extends Biteable
 
 @onready var leaf_particles: PackedScene = preload("res://particles/leaf_particles.tscn")
-@onready var tree_sprite: Sprite2D = %TreeSprite
+@onready var tree_sprite: Sprite2D = %Sprite
 
 @export_range(0.0, 360.0, 1.0, "degrees") var shake_skew: float = 5.0
 @export var shake_duration: float = 0.5

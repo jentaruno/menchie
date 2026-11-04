@@ -1,5 +1,6 @@
 class_name DinoHead extends Area2D
 
+@onready var head_anim: DinoHeadAnim = %HeadLine2D
 var curr_collision: Object
 
 func try_bite() -> void:
@@ -9,6 +10,7 @@ func try_bite() -> void:
 		
 	for area in overlapping_areas:
 		if area is Biteable:
+			head_anim.bite()
 			area.on_bite(%TeethMarker2D.global_position)
 			break
 		
