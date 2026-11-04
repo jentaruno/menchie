@@ -17,8 +17,9 @@ gradient = SubResource("Gradient_tefeu")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xrivr"]
 noise_type = 2
-frequency = 0.0001
 fractal_type = 0
+cellular_distance_function = 1
+cellular_return_type = 0
 
 [node name="Node2D" type="Node2D" unique_id=2122483614]
 
@@ -53,12 +54,17 @@ z_index = 20
 
 [node name="WorldChunk" type="Node2D" parent="Entities" unique_id=557171771]
 script = ExtResource("7_o6xl0")
-grid_size = Vector2i(25, 20)
+cell_size = Vector2(16, 16)
+grid_size = Vector2i(50, 40)
 grid_color = Color(0, 0.6784314, 0.6784314, 0.49803922)
 fern_scene = ExtResource("8_85g3d")
 
-[node name="PoissonDiscSampler" type="Node" parent="Entities/WorldChunk" unique_id=337711149]
+[node name="PoissonDiscSampler" type="Node2D" parent="Entities/WorldChunk" unique_id=337711149]
+z_index = -1
 script = ExtResource("8_tipki")
-radius = 24.0
+radius = 16.0
+sample_region_size = Vector2(800, 640)
 noise = SubResource("FastNoiseLite_xrivr")
-max_spacing = 240.0
+spawn_threshold = 0.5
+max_spacing = 60.0
+debug_noise_samples = true

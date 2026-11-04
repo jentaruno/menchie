@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dayuf5m2fqbo6" path="res://world/vegetation/fern_top.png" id="2_u6hg0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
-radius = 19.0
+radius = 20.0
 
 [node name="FernTop" type="Area2D" unique_id=2114284003]
 script = ExtResource("1_u6hg0")

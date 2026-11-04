@@ -15,7 +15,6 @@ extends Node2D
 		queue_redraw()
 
 @export var fern_scene: PackedScene
-@export var fern_radius: float = 24.0
 
 @onready var sampler: PoissonDiscSampler = $PoissonDiscSampler 
 var _grid_world_size: Vector2:
@@ -23,7 +22,9 @@ var _grid_world_size: Vector2:
 		return Vector2(grid_size.x * cell_size.x, grid_size.y * cell_size.y)
 
 func _ready() -> void:
-	sampler.radius = fern_radius
+	if Engine.is_editor_hint():
+		return
+		
 	sampler.sample_region_size = _grid_world_size
 	var points = sampler.generate_points()
 	for point in points:
@@ -32,6 +33,9 @@ func _ready() -> void:
 		fern.position = point - _grid_world_size / 2.0
 	
 func _draw() -> void:
+	if not Engine.is_editor_hint():
+		return
+	
 	var left = -grid_size.x / 2.0
 	var right = grid_size.x / 2.0
 	var top = -grid_size.y / 2.0
