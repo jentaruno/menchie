@@ -14,23 +14,10 @@ extends Node2D
 		grid_color = value
 		queue_redraw()
 
-@export var fern_scene: PackedScene
 
-@onready var sampler: PoissonDiscSampler = $PoissonDiscSampler 
-var _grid_world_size: Vector2:
+var grid_world_size: Vector2:
 	get:
 		return Vector2(grid_size.x * cell_size.x, grid_size.y * cell_size.y)
-
-func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-		
-	sampler.sample_region_size = _grid_world_size
-	var points = sampler.generate_points()
-	for point in points:
-		var fern = fern_scene.instantiate()
-		add_child(fern)
-		fern.position = point - _grid_world_size / 2.0
 	
 func _draw() -> void:
 	if not Engine.is_editor_hint():

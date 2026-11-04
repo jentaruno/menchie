@@ -7,7 +7,9 @@
 [ext_resource type="Script" uid="uid://cpbtgrvqrdovj" path="res://world/terrain/footstep_manager.gd" id="4_o6xl0"]
 [ext_resource type="Script" uid="uid://uydgd1fm3dq8" path="res://world/terrain/world_chunk.gd" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dqqa8hw5goqu1" path="res://world/vegetation/fern.tscn" id="8_85g3d"]
+[ext_resource type="Script" uid="uid://bm7dl7s3uyyrn" path="res://common/random_transform_spawner.gd" id="8_choun"]
 [ext_resource type="Script" uid="uid://cr28u2xyimtte" path="res://common/poisson_disc_sampling.gd" id="8_tipki"]
+[ext_resource type="Script" uid="uid://b66s6pl4h3lks" path="res://common/object_placement_generator.gd" id="10_choun"]
 
 [sub_resource type="Gradient" id="Gradient_tefeu"]
 colors = PackedColorArray(0.8901961, 0.78431374, 0.5882353, 1, 0.8901961, 0.78431374, 0.5882353, 1)
@@ -54,12 +56,13 @@ z_index = 20
 
 [node name="WorldChunk" type="Node2D" parent="Entities" unique_id=557171771]
 script = ExtResource("7_o6xl0")
-cell_size = Vector2(16, 16)
-grid_size = Vector2i(50, 40)
-grid_color = Color(0, 0.6784314, 0.6784314, 0.49803922)
-fern_scene = ExtResource("8_85g3d")
 
-[node name="PoissonDiscSampler" type="Node2D" parent="Entities/WorldChunk" unique_id=337711149]
+[node name="FernPlacementGenerator" type="Node2D" parent="Entities/WorldChunk" unique_id=1599059682 node_paths=PackedStringArray("position_sampler", "spawner")]
+script = ExtResource("10_choun")
+position_sampler = NodePath("PoissonDiscSampler")
+spawner = NodePath("RandomTransformSpawner")
+
+[node name="PoissonDiscSampler" type="Node2D" parent="Entities/WorldChunk/FernPlacementGenerator" unique_id=337711149]
 z_index = -1
 script = ExtResource("8_tipki")
 radius = 16.0
@@ -68,3 +71,10 @@ noise = SubResource("FastNoiseLite_xrivr")
 spawn_threshold = 0.5
 max_spacing = 60.0
 debug_noise_samples = true
+
+[node name="RandomTransformSpawner" type="Node2D" parent="Entities/WorldChunk/FernPlacementGenerator" unique_id=1351284227]
+script = ExtResource("8_choun")
+object = ExtResource("8_85g3d")
+min_scale = 0.8
+max_scale = 1.2
+max_rotation = 360.0
